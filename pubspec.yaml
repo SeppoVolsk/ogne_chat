@@ -16,6 +16,7 @@ dependencies:
   firebase_storage: ^11.0.14
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.2
   freezed: ^2.3.2
   get_it: ^7.2.0
   injectable: ^2.1.0

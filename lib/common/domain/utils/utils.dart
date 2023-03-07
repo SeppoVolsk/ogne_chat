@@ -3,7 +3,7 @@ import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:l/l.dart';
 
 abstract class Utils {
-  static Future preloadAllAppValues(String env) async {
+  static Future<void> preloadAllAppValues(String env) async {
     late dynamic preloadResult;
     try {
       initDi(env);

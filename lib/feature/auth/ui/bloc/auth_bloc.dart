@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart';
+import 'package:l/l.dart';
 part 'auth_bloc.freezed.dart';
 
 /* AuthBloc Events */
@@ -72,6 +73,7 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
         super(user == null
             ? AuthBlocState.notAuthenticated(user: user)
             : AuthBlocState.authenticated(user: user)) {
+    l.s('Created');
     on<AuthBlocEvent>(
       (event, emit) => event.map<Future<void>>(
         logIn: (event) => _logIn(event, emit),
