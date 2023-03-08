@@ -5,6 +5,7 @@ import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/login_screen.dart';
 import 'package:kind_owl/feature/main/ui/main_screen.dart';
+import 'package:l/l.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -24,6 +25,8 @@ class _RootScreenState extends State<RootScreen> {
                 authenticated: (_) => const MainScreen(),
                 processing: (_) => const Text("Processing..."),
                 orElse: () => const Text("Something went wrong")),
-            listener: (context, state) {});
+            listener: (context, state) {
+              l.s('$state');
+            });
   }
 }

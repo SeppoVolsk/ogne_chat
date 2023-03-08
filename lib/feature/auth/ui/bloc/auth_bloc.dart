@@ -15,10 +15,16 @@ class AuthBlocEvent with _$AuthBlocEvent {
   const AuthBlocEvent._();
 
   /// Log In event
-  const factory AuthBlocEvent.logIn() = LogInAuthBlocEvent;
+  const factory AuthBlocEvent.logIn(
+      {required String email, required String password}) = LogInAuthBlocEvent;
 
   /// Log Out event
   const factory AuthBlocEvent.logOut() = LogOutAuthBlocEvent;
+
+  /// Registrartion event
+  const factory AuthBlocEvent.register(
+      {required String email,
+      required String password}) = RegisterAuthBlocEvent;
 }
 
 /* AuthBloc States */
@@ -52,7 +58,7 @@ class AuthBlocState with _$AuthBlocState {
   }) = ErrorAuthBlocState;
 
   /// Has data
-  bool get hasUser => user != null;
+  //bool get hasUser => user != null;
 
   /// If an error has occurred
   bool get hasError => maybeMap<bool>(orElse: () => false, error: (_) => true);
@@ -68,16 +74,16 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
     implements EventSink<AuthBlocEvent> {
   AuthBLoC({
     required final IAuthRepository repository,
-    final UserEntity? user,
+    @factoryParam final UserEntity? user,
   })  : _repository = repository,
         super(user == null
             ? AuthBlocState.notAuthenticated(user: user)
             : AuthBlocState.authenticated(user: user)) {
-    l.s('Created');
     on<AuthBlocEvent>(
       (event, emit) => event.map<Future<void>>(
         logIn: (event) => _logIn(event, emit),
         logOut: (event) => _logOut(event, emit),
+        register: (event) => _register(event, emit),
       ),
       //transformer: bloc_concurrency.sequential(),
       //transformer: bloc_concurrency.restartable(),
@@ -93,10 +99,13 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
       LogInAuthBlocEvent event, Emitter<AuthBlocState> emit) async {
     try {
       emit(AuthBlocState.processing(user: state.user));
-      final newData = await _repository.signIn(email: '', password: '');
+      final newData = await _repository.signIn(
+        email: event.email,
+        password: event.password,
+      );
       emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
-      //l.e('An error occurred in the AuthBLoC: $err', stackTrace);
+      l.e('An error occurred in the AuthBLoC: $err', stackTrace);
       emit(AuthBlocState.error(user: state.user));
       rethrow;
     } finally {
@@ -108,11 +117,30 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
   Future<void> _logOut(
       LogOutAuthBlocEvent event, Emitter<AuthBlocState> emit) async {
     try {
-      emit(AuthBlocState.processing(user: state.user));
+      //  emit(AuthBlocState.processing(user: state.user));
       final newData = await _repository.signOut();
+      //  emit(AuthBlocState.authenticated(user: newData));
+    } on Object catch (err, stackTrace) {
+      l.e('An error occurred in the AuthBLoC: $err', stackTrace);
+      //  emit(AuthBlocState.error(user: state.user));
+      rethrow;
+    } finally {
+      //emit(AuthState.idle(data: state.data));
+    }
+  }
+
+  /// LogIn event handler
+  Future<void> _register(
+      RegisterAuthBlocEvent event, Emitter<AuthBlocState> emit) async {
+    try {
+      emit(AuthBlocState.processing(user: state.user));
+      final newData = await _repository.register(
+        email: event.email,
+        password: event.password,
+      );
       emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
-      //l.e('An error occurred in the AuthBLoC: $err', stackTrace);
+      l.e('An error occurred in the AuthBLoC: $err', stackTrace);
       emit(AuthBlocState.error(user: state.user));
       rethrow;
     } finally {

@@ -12,23 +12,21 @@ class InitialWidget extends StatelessWidget {
   final String env;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: env == "prod" ? false : true,
-      home: Center(
-        child: FutureBuilder(
-            future: Utils.preloadAllAppValues(env),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return MultiBlocProvider(providers: [
-                  BlocProvider(
-                      create: (BuildContext context) => getIt.get<AuthBLoC>())
-                ], child: RootScreen());
-              } else if (snapshot.hasError) {
-                return const Text("ERROR");
-              }
-              return const Text('Loading...');
-            }),
-      ),
-    );
+    return FutureBuilder(
+        future: Utils.preloadAllAppValues(env),
+        builder: (context, snapshot) {
+          late Widget widgetToShow;
+          if (snapshot.hasData) {
+            widgetToShow = const RootScreen();
+          } else if (snapshot.hasError) {
+            widgetToShow = const Text("ERROR");
+          } else {
+            widgetToShow = const Text("Loading...");
+          }
+          return MultiBlocProvider(providers: [
+            BlocProvider(
+                create: (BuildContext context) => getIt.get<AuthBLoC>())
+          ], child: MaterialApp(home: widgetToShow));
+        });
   }
 }

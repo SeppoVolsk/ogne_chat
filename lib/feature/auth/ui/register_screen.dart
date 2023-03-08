@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
-import 'package:kind_owl/feature/auth/ui/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  final controllerPassword2 = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("LoginScreen")),
+        appBar: AppBar(title: const Text("Registration Screen")),
         body: Form(
           key: formKey,
           child: Center(
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   AppTextField(
                     controller: controllerEmail,
-                    labelText: "Email",
+                    labelText: "E-mail",
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
@@ -35,23 +35,28 @@ class LoginScreen extends StatelessWidget {
                     obscureText: true,
                   ),
                   const SizedBox(height: 16),
+                  AppTextField(
+                    controller: controllerPassword2,
+                    labelText: "Repeat Password",
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 16),
                   AppTextButton(
                     onPressed: () {
-                      if (formKey.currentState?.validate() == true) {
-                        context.read<AuthBLoC>().add(AuthBlocEvent.logIn(
+                      if (formKey.currentState?.validate() != true) return;
+                      if (controllerPassword2.text != controllerPassword.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Passwords aren't identical")));
+                      } else {
+                        context.read<AuthBLoC>().add(AuthBlocEvent.register(
                             email: controllerEmail.text,
                             password: controllerPassword.text));
+                        Navigator.of(context).pop();
                       }
                     },
-                    text: "LOGIN",
-                  ),
-                  AppTextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RegisterScreen()));
-                    },
                     text: "Registration",
-                    backgroundColor: Colors.blueGrey,
+                    backgroundColor: Colors.grey,
                   )
                 ],
               ),
@@ -59,4 +64,10 @@ class LoginScreen extends StatelessWidget {
           ),
         ));
   }
+
+//   void _onTapToSignUp(AuthCubit authCubit) => authCubit.signUp(
+//         username: controllerLogin.text,
+//         password: controllerPassword.text,
+//         email: controllerEmail.text,
+//       );
 }

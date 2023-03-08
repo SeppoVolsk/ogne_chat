@@ -8,12 +8,12 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:kind_owl/common/data/i_remote_service.dart' as _i3;
-import 'package:kind_owl/common/domain/repo/i_auth_repository.dart' as _i6;
+import 'package:kind_owl/common/domain/repo/i_auth_repository.dart' as _i5;
 import 'package:kind_owl/feature/auth/data/firebase_remote_service.dart' as _i4;
 import 'package:kind_owl/feature/auth/domain/firebase_auth_repository.dart'
-    as _i7;
-import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart' as _i8;
-import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart' as _i5;
+    as _i6;
+import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart' as _i7;
+import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart' as _i8;
 
 const String _prod = 'prod';
 
@@ -34,21 +34,17 @@ extension GetItInjectableX on _i1.GetIt {
       _i4.FirebaseRemoteService(),
       registerFor: {_prod},
     );
-    gh.factory<_i5.UserEntity>(
-      () => _i5.UserEntity(
-        uid: gh<String>(),
-        name: gh<String>(),
-        photo: gh<String>(),
-      ),
+    gh.singleton<_i5.IAuthRepository>(
+      _i6.FirebaseAuthRepository(gh<_i3.IRemoteService>()),
       registerFor: {_prod},
     );
-    gh.singleton<_i6.IAuthRepository>(
-      _i7.FirebaseAuthRepository(gh<_i3.IRemoteService>()),
-      registerFor: {_prod},
-    );
-    gh.factory<_i8.AuthBLoC>(() => _i8.AuthBLoC(
-          repository: gh<_i6.IAuthRepository>(),
-          user: gh<_i5.UserEntity>(),
+    gh.factoryParam<_i7.AuthBLoC, _i8.UserEntity?, dynamic>((
+      user,
+      _,
+    ) =>
+        _i7.AuthBLoC(
+          repository: gh<_i5.IAuthRepository>(),
+          user: user,
         ));
     return this;
   }

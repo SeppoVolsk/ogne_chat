@@ -18,20 +18,23 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() logIn,
+    required TResult Function(String email, String password) logIn,
     required TResult Function() logOut,
+    required TResult Function(String email, String password) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? logIn,
+    TResult? Function(String email, String password)? logIn,
     TResult? Function()? logOut,
+    TResult? Function(String email, String password)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? logIn,
+    TResult Function(String email, String password)? logIn,
     TResult Function()? logOut,
+    TResult Function(String email, String password)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$AuthBlocEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(LogInAuthBlocEvent value) logIn,
     required TResult Function(LogOutAuthBlocEvent value) logOut,
+    required TResult Function(RegisterAuthBlocEvent value) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LogInAuthBlocEvent value)? logIn,
     TResult? Function(LogOutAuthBlocEvent value)? logOut,
+    TResult? Function(RegisterAuthBlocEvent value)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LogInAuthBlocEvent value)? logIn,
     TResult Function(LogOutAuthBlocEvent value)? logOut,
+    TResult Function(RegisterAuthBlocEvent value)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -79,6 +85,8 @@ abstract class _$$LogInAuthBlocEventCopyWith<$Res> {
   factory _$$LogInAuthBlocEventCopyWith(_$LogInAuthBlocEvent value,
           $Res Function(_$LogInAuthBlocEvent) then) =
       __$$LogInAuthBlocEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
 }
 
 /// @nodoc
@@ -88,54 +96,92 @@ class __$$LogInAuthBlocEventCopyWithImpl<$Res>
   __$$LogInAuthBlocEventCopyWithImpl(
       _$LogInAuthBlocEvent _value, $Res Function(_$LogInAuthBlocEvent) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$LogInAuthBlocEvent(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LogInAuthBlocEvent extends LogInAuthBlocEvent {
-  const _$LogInAuthBlocEvent() : super._();
+  const _$LogInAuthBlocEvent({required this.email, required this.password})
+      : super._();
+
+  @override
+  final String email;
+  @override
+  final String password;
 
   @override
   String toString() {
-    return 'AuthBlocEvent.logIn()';
+    return 'AuthBlocEvent.logIn(email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LogInAuthBlocEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$LogInAuthBlocEvent &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LogInAuthBlocEventCopyWith<_$LogInAuthBlocEvent> get copyWith =>
+      __$$LogInAuthBlocEventCopyWithImpl<_$LogInAuthBlocEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() logIn,
+    required TResult Function(String email, String password) logIn,
     required TResult Function() logOut,
+    required TResult Function(String email, String password) register,
   }) {
-    return logIn();
+    return logIn(email, password);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? logIn,
+    TResult? Function(String email, String password)? logIn,
     TResult? Function()? logOut,
+    TResult? Function(String email, String password)? register,
   }) {
-    return logIn?.call();
+    return logIn?.call(email, password);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? logIn,
+    TResult Function(String email, String password)? logIn,
     TResult Function()? logOut,
+    TResult Function(String email, String password)? register,
     required TResult orElse(),
   }) {
     if (logIn != null) {
-      return logIn();
+      return logIn(email, password);
     }
     return orElse();
   }
@@ -145,6 +191,7 @@ class _$LogInAuthBlocEvent extends LogInAuthBlocEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(LogInAuthBlocEvent value) logIn,
     required TResult Function(LogOutAuthBlocEvent value) logOut,
+    required TResult Function(RegisterAuthBlocEvent value) register,
   }) {
     return logIn(this);
   }
@@ -154,6 +201,7 @@ class _$LogInAuthBlocEvent extends LogInAuthBlocEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LogInAuthBlocEvent value)? logIn,
     TResult? Function(LogOutAuthBlocEvent value)? logOut,
+    TResult? Function(RegisterAuthBlocEvent value)? register,
   }) {
     return logIn?.call(this);
   }
@@ -163,6 +211,7 @@ class _$LogInAuthBlocEvent extends LogInAuthBlocEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LogInAuthBlocEvent value)? logIn,
     TResult Function(LogOutAuthBlocEvent value)? logOut,
+    TResult Function(RegisterAuthBlocEvent value)? register,
     required TResult orElse(),
   }) {
     if (logIn != null) {
@@ -173,8 +222,16 @@ class _$LogInAuthBlocEvent extends LogInAuthBlocEvent {
 }
 
 abstract class LogInAuthBlocEvent extends AuthBlocEvent {
-  const factory LogInAuthBlocEvent() = _$LogInAuthBlocEvent;
+  const factory LogInAuthBlocEvent(
+      {required final String email,
+      required final String password}) = _$LogInAuthBlocEvent;
   const LogInAuthBlocEvent._() : super._();
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$LogInAuthBlocEventCopyWith<_$LogInAuthBlocEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -215,8 +272,9 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() logIn,
+    required TResult Function(String email, String password) logIn,
     required TResult Function() logOut,
+    required TResult Function(String email, String password) register,
   }) {
     return logOut();
   }
@@ -224,8 +282,9 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? logIn,
+    TResult? Function(String email, String password)? logIn,
     TResult? Function()? logOut,
+    TResult? Function(String email, String password)? register,
   }) {
     return logOut?.call();
   }
@@ -233,8 +292,9 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? logIn,
+    TResult Function(String email, String password)? logIn,
     TResult Function()? logOut,
+    TResult Function(String email, String password)? register,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -248,6 +308,7 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(LogInAuthBlocEvent value) logIn,
     required TResult Function(LogOutAuthBlocEvent value) logOut,
+    required TResult Function(RegisterAuthBlocEvent value) register,
   }) {
     return logOut(this);
   }
@@ -257,6 +318,7 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LogInAuthBlocEvent value)? logIn,
     TResult? Function(LogOutAuthBlocEvent value)? logOut,
+    TResult? Function(RegisterAuthBlocEvent value)? register,
   }) {
     return logOut?.call(this);
   }
@@ -266,6 +328,7 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LogInAuthBlocEvent value)? logIn,
     TResult Function(LogOutAuthBlocEvent value)? logOut,
+    TResult Function(RegisterAuthBlocEvent value)? register,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -278,6 +341,160 @@ class _$LogOutAuthBlocEvent extends LogOutAuthBlocEvent {
 abstract class LogOutAuthBlocEvent extends AuthBlocEvent {
   const factory LogOutAuthBlocEvent() = _$LogOutAuthBlocEvent;
   const LogOutAuthBlocEvent._() : super._();
+}
+
+/// @nodoc
+abstract class _$$RegisterAuthBlocEventCopyWith<$Res> {
+  factory _$$RegisterAuthBlocEventCopyWith(_$RegisterAuthBlocEvent value,
+          $Res Function(_$RegisterAuthBlocEvent) then) =
+      __$$RegisterAuthBlocEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class __$$RegisterAuthBlocEventCopyWithImpl<$Res>
+    extends _$AuthBlocEventCopyWithImpl<$Res, _$RegisterAuthBlocEvent>
+    implements _$$RegisterAuthBlocEventCopyWith<$Res> {
+  __$$RegisterAuthBlocEventCopyWithImpl(_$RegisterAuthBlocEvent _value,
+      $Res Function(_$RegisterAuthBlocEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$RegisterAuthBlocEvent(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RegisterAuthBlocEvent extends RegisterAuthBlocEvent {
+  const _$RegisterAuthBlocEvent({required this.email, required this.password})
+      : super._();
+
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'AuthBlocEvent.register(email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterAuthBlocEvent &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterAuthBlocEventCopyWith<_$RegisterAuthBlocEvent> get copyWith =>
+      __$$RegisterAuthBlocEventCopyWithImpl<_$RegisterAuthBlocEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) logIn,
+    required TResult Function() logOut,
+    required TResult Function(String email, String password) register,
+  }) {
+    return register(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? logIn,
+    TResult? Function()? logOut,
+    TResult? Function(String email, String password)? register,
+  }) {
+    return register?.call(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? logIn,
+    TResult Function()? logOut,
+    TResult Function(String email, String password)? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(email, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LogInAuthBlocEvent value) logIn,
+    required TResult Function(LogOutAuthBlocEvent value) logOut,
+    required TResult Function(RegisterAuthBlocEvent value) register,
+  }) {
+    return register(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LogInAuthBlocEvent value)? logIn,
+    TResult? Function(LogOutAuthBlocEvent value)? logOut,
+    TResult? Function(RegisterAuthBlocEvent value)? register,
+  }) {
+    return register?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LogInAuthBlocEvent value)? logIn,
+    TResult Function(LogOutAuthBlocEvent value)? logOut,
+    TResult Function(RegisterAuthBlocEvent value)? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RegisterAuthBlocEvent extends AuthBlocEvent {
+  const factory RegisterAuthBlocEvent(
+      {required final String email,
+      required final String password}) = _$RegisterAuthBlocEvent;
+  const RegisterAuthBlocEvent._() : super._();
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$RegisterAuthBlocEventCopyWith<_$RegisterAuthBlocEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
