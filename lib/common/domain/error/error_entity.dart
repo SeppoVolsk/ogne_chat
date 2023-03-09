@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ErrorEntity {
@@ -21,9 +20,9 @@ class ErrorEntity {
       try {
         return ErrorEntity(
             message: error.message ?? "Unknow message",
-            errorMessage: error.code ?? "Unknow message",
+            errorMessage: error.plugin,
             stackTrace: error.stackTrace,
-            error: error.);
+            error: error);
       } catch (error) {
         return entity;
       }

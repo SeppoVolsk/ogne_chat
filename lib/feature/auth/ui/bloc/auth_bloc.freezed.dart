@@ -507,7 +507,8 @@ mixin _$AuthBlocState {
         notAuthenticated,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
-    required TResult Function(UserEntity? user, String message) error,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -515,7 +516,7 @@ mixin _$AuthBlocState {
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
-    TResult? Function(UserEntity? user, String message)? error,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -523,7 +524,7 @@ mixin _$AuthBlocState {
     TResult Function(UserEntity? user, String message)? notAuthenticated,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
-    TResult Function(UserEntity? user, String message)? error,
+    TResult Function(UserEntity? user, Object error, String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -698,7 +699,8 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
         notAuthenticated,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
-    required TResult Function(UserEntity? user, String message) error,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
   }) {
     return notAuthenticated(user, message);
   }
@@ -709,7 +711,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
-    TResult? Function(UserEntity? user, String message)? error,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
   }) {
     return notAuthenticated?.call(user, message);
   }
@@ -720,7 +722,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
     TResult Function(UserEntity? user, String message)? notAuthenticated,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
-    TResult Function(UserEntity? user, String message)? error,
+    TResult Function(UserEntity? user, Object error, String message)? error,
     required TResult orElse(),
   }) {
     if (notAuthenticated != null) {
@@ -869,7 +871,8 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
         notAuthenticated,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
-    required TResult Function(UserEntity? user, String message) error,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
   }) {
     return processing(user, message);
   }
@@ -880,7 +883,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
-    TResult? Function(UserEntity? user, String message)? error,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
   }) {
     return processing?.call(user, message);
   }
@@ -891,7 +894,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
     TResult Function(UserEntity? user, String message)? notAuthenticated,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
-    TResult Function(UserEntity? user, String message)? error,
+    TResult Function(UserEntity? user, Object error, String message)? error,
     required TResult orElse(),
   }) {
     if (processing != null) {
@@ -1042,7 +1045,8 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
         notAuthenticated,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
-    required TResult Function(UserEntity? user, String message) error,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
   }) {
     return authenticated(user, message);
   }
@@ -1053,7 +1057,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
-    TResult? Function(UserEntity? user, String message)? error,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
   }) {
     return authenticated?.call(user, message);
   }
@@ -1064,7 +1068,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
     TResult Function(UserEntity? user, String message)? notAuthenticated,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
-    TResult Function(UserEntity? user, String message)? error,
+    TResult Function(UserEntity? user, Object error, String message)? error,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -1136,7 +1140,7 @@ abstract class _$$ErrorAuthBlocStateCopyWith<$Res>
       __$$ErrorAuthBlocStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserEntity? user, String message});
+  $Res call({UserEntity? user, Object error, String message});
 
   @override
   $UserEntityCopyWith<$Res>? get user;
@@ -1154,6 +1158,7 @@ class __$$ErrorAuthBlocStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = freezed,
+    Object? error = null,
     Object? message = null,
   }) {
     return _then(_$ErrorAuthBlocState(
@@ -1161,6 +1166,7 @@ class __$$ErrorAuthBlocStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      error: null == error ? _value.error : error,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1173,18 +1179,22 @@ class __$$ErrorAuthBlocStateCopyWithImpl<$Res>
 
 class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   const _$ErrorAuthBlocState(
-      {required this.user, this.message = 'An error has occurred'})
+      {required this.user,
+      required this.error,
+      this.message = 'An error has occurred'})
       : super._();
 
   @override
   final UserEntity? user;
+  @override
+  final Object error;
   @override
   @JsonKey()
   final String message;
 
   @override
   String toString() {
-    return 'AuthBlocState.error(user: $user, message: $message)';
+    return 'AuthBlocState.error(user: $user, error: $error, message: $message)';
   }
 
   @override
@@ -1193,11 +1203,13 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
         (other.runtimeType == runtimeType &&
             other is _$ErrorAuthBlocState &&
             (identical(other.user, user) || other.user == user) &&
+            const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, message);
+  int get hashCode => Object.hash(
+      runtimeType, user, const DeepCollectionEquality().hash(error), message);
 
   @JsonKey(ignore: true)
   @override
@@ -1213,9 +1225,10 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
         notAuthenticated,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
-    required TResult Function(UserEntity? user, String message) error,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
   }) {
-    return error(user, message);
+    return error(user, this.error, message);
   }
 
   @override
@@ -1224,9 +1237,9 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
-    TResult? Function(UserEntity? user, String message)? error,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
   }) {
-    return error?.call(user, message);
+    return error?.call(user, this.error, message);
   }
 
   @override
@@ -1235,11 +1248,11 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
     TResult Function(UserEntity? user, String message)? notAuthenticated,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
-    TResult Function(UserEntity? user, String message)? error,
+    TResult Function(UserEntity? user, Object error, String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(user, message);
+      return error(user, this.error, message);
     }
     return orElse();
   }
@@ -1286,11 +1299,13 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
 abstract class ErrorAuthBlocState extends AuthBlocState {
   const factory ErrorAuthBlocState(
       {required final UserEntity? user,
+      required final Object error,
       final String message}) = _$ErrorAuthBlocState;
   const ErrorAuthBlocState._() : super._();
 
   @override
   UserEntity? get user;
+  Object get error;
   @override
   String get message;
   @override

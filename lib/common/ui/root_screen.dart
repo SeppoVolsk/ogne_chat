@@ -2,19 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
+import 'package:kind_owl/common/domain/error/error_entity.dart';
+import 'package:kind_owl/common/ui/app_components/app_loader.dart';
+import 'package:kind_owl/common/ui/app_components/app_snack_bar.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/login_screen.dart';
 import 'package:kind_owl/feature/main/ui/main_screen.dart';
 import 'package:l/l.dart';
 
-class RootScreen extends StatefulWidget {
+class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
 
-  @override
-  State<RootScreen> createState() => _RootScreenState();
-}
-
-class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return
@@ -23,10 +21,15 @@ class _RootScreenState extends State<RootScreen> {
             builder: (context, state) => state.maybeMap(
                 notAuthenticated: (_) => LoginScreen(),
                 authenticated: (_) => const MainScreen(),
-                processing: (_) => const Text("Processing..."),
-                orElse: () => const Text("Something went wrong")),
+                processing: (_) => const AppLoader(),
+                orElse: () => LoginScreen()),
             listener: (context, state) {
-              l.s('$state');
+              state.whenOrNull(
+                error: (_, error, __) => AppSnackBar.showSnackBarWithError(
+                  context,
+                  ErrorEntity.fromException(error),
+                ),
+              );
             });
   }
 }

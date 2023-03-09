@@ -54,6 +54,7 @@ class AuthBlocState with _$AuthBlocState {
   /// An error has occurred
   const factory AuthBlocState.error({
     required final UserEntity? user,
+    required final Object error,
     @Default('An error has occurred') final String message,
   }) = ErrorAuthBlocState;
 
@@ -106,7 +107,7 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
       emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the AuthBLoC: $err', stackTrace);
-      emit(AuthBlocState.error(user: state.user));
+      emit(AuthBlocState.error(user: state.user, error: err));
       rethrow;
     } finally {
       //emit(AuthState.idle(data: state.data));
@@ -141,7 +142,7 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
       emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the AuthBLoC: $err', stackTrace);
-      emit(AuthBlocState.error(user: state.user));
+      emit(AuthBlocState.error(user: state.user, error: err));
       rethrow;
     } finally {
       //emit(AuthState.idle(data: state.data));

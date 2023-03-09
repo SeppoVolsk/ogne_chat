@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kind_owl/common/domain/error/error_entity.dart';
 
 abstract class AppSnackBar {
   static void showSnackBarWithMessage(BuildContext context, String message) {
