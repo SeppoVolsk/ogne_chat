@@ -505,6 +505,7 @@ mixin _$AuthBlocState {
   TResult when<TResult extends Object?>({
     required TResult Function(UserEntity? user, String message)
         notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
     required TResult Function(UserEntity? user, Object error, String message)
@@ -514,6 +515,7 @@ mixin _$AuthBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
     TResult? Function(UserEntity? user, Object error, String message)? error,
@@ -522,6 +524,7 @@ mixin _$AuthBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
     TResult Function(UserEntity? user, Object error, String message)? error,
@@ -532,6 +535,7 @@ mixin _$AuthBlocState {
   TResult map<TResult extends Object?>({
     required TResult Function(NotAuthenticatedAuthBlocState value)
         notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
     required TResult Function(ProcessingAuthBlocState value) processing,
     required TResult Function(AuthenticatedAuthBlocState value) authenticated,
     required TResult Function(ErrorAuthBlocState value) error,
@@ -540,6 +544,7 @@ mixin _$AuthBlocState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
     TResult? Function(ProcessingAuthBlocState value)? processing,
     TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult? Function(ErrorAuthBlocState value)? error,
@@ -548,6 +553,7 @@ mixin _$AuthBlocState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
     TResult Function(ProcessingAuthBlocState value)? processing,
     TResult Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult Function(ErrorAuthBlocState value)? error,
@@ -697,6 +703,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   TResult when<TResult extends Object?>({
     required TResult Function(UserEntity? user, String message)
         notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
     required TResult Function(UserEntity? user, Object error, String message)
@@ -709,6 +716,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
     TResult? Function(UserEntity? user, Object error, String message)? error,
@@ -720,6 +728,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
     TResult Function(UserEntity? user, Object error, String message)? error,
@@ -736,6 +745,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   TResult map<TResult extends Object?>({
     required TResult Function(NotAuthenticatedAuthBlocState value)
         notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
     required TResult Function(ProcessingAuthBlocState value) processing,
     required TResult Function(AuthenticatedAuthBlocState value) authenticated,
     required TResult Function(ErrorAuthBlocState value) error,
@@ -747,6 +757,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
     TResult? Function(ProcessingAuthBlocState value)? processing,
     TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult? Function(ErrorAuthBlocState value)? error,
@@ -758,6 +769,7 @@ class _$NotAuthenticatedAuthBlocState extends NotAuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
     TResult Function(ProcessingAuthBlocState value)? processing,
     TResult Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult Function(ErrorAuthBlocState value)? error,
@@ -783,6 +795,184 @@ abstract class NotAuthenticatedAuthBlocState extends AuthBlocState {
   @override
   @JsonKey(ignore: true)
   _$$NotAuthenticatedAuthBlocStateCopyWith<_$NotAuthenticatedAuthBlocState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnregisteredAuthBlocStateCopyWith<$Res>
+    implements $AuthBlocStateCopyWith<$Res> {
+  factory _$$UnregisteredAuthBlocStateCopyWith(
+          _$UnregisteredAuthBlocState value,
+          $Res Function(_$UnregisteredAuthBlocState) then) =
+      __$$UnregisteredAuthBlocStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserEntity? user, String message});
+
+  @override
+  $UserEntityCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class __$$UnregisteredAuthBlocStateCopyWithImpl<$Res>
+    extends _$AuthBlocStateCopyWithImpl<$Res, _$UnregisteredAuthBlocState>
+    implements _$$UnregisteredAuthBlocStateCopyWith<$Res> {
+  __$$UnregisteredAuthBlocStateCopyWithImpl(_$UnregisteredAuthBlocState _value,
+      $Res Function(_$UnregisteredAuthBlocState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = freezed,
+    Object? message = null,
+  }) {
+    return _then(_$UnregisteredAuthBlocState(
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnregisteredAuthBlocState extends UnregisteredAuthBlocState {
+  const _$UnregisteredAuthBlocState({required this.user, this.message = 'Idle'})
+      : super._();
+
+  @override
+  final UserEntity? user;
+  @override
+  @JsonKey()
+  final String message;
+
+  @override
+  String toString() {
+    return 'AuthBlocState.unregistered(user: $user, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnregisteredAuthBlocState &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, user, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnregisteredAuthBlocStateCopyWith<_$UnregisteredAuthBlocState>
+      get copyWith => __$$UnregisteredAuthBlocStateCopyWithImpl<
+          _$UnregisteredAuthBlocState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserEntity? user, String message)
+        notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
+    required TResult Function(UserEntity? user, String message) processing,
+    required TResult Function(UserEntity? user, String message) authenticated,
+    required TResult Function(UserEntity? user, Object error, String message)
+        error,
+  }) {
+    return unregistered(user, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
+    TResult? Function(UserEntity? user, String message)? processing,
+    TResult? Function(UserEntity? user, String message)? authenticated,
+    TResult? Function(UserEntity? user, Object error, String message)? error,
+  }) {
+    return unregistered?.call(user, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
+    TResult Function(UserEntity? user, String message)? processing,
+    TResult Function(UserEntity? user, String message)? authenticated,
+    TResult Function(UserEntity? user, Object error, String message)? error,
+    required TResult orElse(),
+  }) {
+    if (unregistered != null) {
+      return unregistered(user, message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NotAuthenticatedAuthBlocState value)
+        notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
+    required TResult Function(ProcessingAuthBlocState value) processing,
+    required TResult Function(AuthenticatedAuthBlocState value) authenticated,
+    required TResult Function(ErrorAuthBlocState value) error,
+  }) {
+    return unregistered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
+    TResult? Function(ProcessingAuthBlocState value)? processing,
+    TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
+    TResult? Function(ErrorAuthBlocState value)? error,
+  }) {
+    return unregistered?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
+    TResult Function(ProcessingAuthBlocState value)? processing,
+    TResult Function(AuthenticatedAuthBlocState value)? authenticated,
+    TResult Function(ErrorAuthBlocState value)? error,
+    required TResult orElse(),
+  }) {
+    if (unregistered != null) {
+      return unregistered(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnregisteredAuthBlocState extends AuthBlocState {
+  const factory UnregisteredAuthBlocState(
+      {required final UserEntity? user,
+      final String message}) = _$UnregisteredAuthBlocState;
+  const UnregisteredAuthBlocState._() : super._();
+
+  @override
+  UserEntity? get user;
+  @override
+  String get message;
+  @override
+  @JsonKey(ignore: true)
+  _$$UnregisteredAuthBlocStateCopyWith<_$UnregisteredAuthBlocState>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -869,6 +1059,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   TResult when<TResult extends Object?>({
     required TResult Function(UserEntity? user, String message)
         notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
     required TResult Function(UserEntity? user, Object error, String message)
@@ -881,6 +1072,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
     TResult? Function(UserEntity? user, Object error, String message)? error,
@@ -892,6 +1084,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
     TResult Function(UserEntity? user, Object error, String message)? error,
@@ -908,6 +1101,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   TResult map<TResult extends Object?>({
     required TResult Function(NotAuthenticatedAuthBlocState value)
         notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
     required TResult Function(ProcessingAuthBlocState value) processing,
     required TResult Function(AuthenticatedAuthBlocState value) authenticated,
     required TResult Function(ErrorAuthBlocState value) error,
@@ -919,6 +1113,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
     TResult? Function(ProcessingAuthBlocState value)? processing,
     TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult? Function(ErrorAuthBlocState value)? error,
@@ -930,6 +1125,7 @@ class _$ProcessingAuthBlocState extends ProcessingAuthBlocState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
     TResult Function(ProcessingAuthBlocState value)? processing,
     TResult Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult Function(ErrorAuthBlocState value)? error,
@@ -1043,6 +1239,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   TResult when<TResult extends Object?>({
     required TResult Function(UserEntity? user, String message)
         notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
     required TResult Function(UserEntity? user, Object error, String message)
@@ -1055,6 +1252,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
     TResult? Function(UserEntity? user, Object error, String message)? error,
@@ -1066,6 +1264,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
     TResult Function(UserEntity? user, Object error, String message)? error,
@@ -1082,6 +1281,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   TResult map<TResult extends Object?>({
     required TResult Function(NotAuthenticatedAuthBlocState value)
         notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
     required TResult Function(ProcessingAuthBlocState value) processing,
     required TResult Function(AuthenticatedAuthBlocState value) authenticated,
     required TResult Function(ErrorAuthBlocState value) error,
@@ -1093,6 +1293,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
     TResult? Function(ProcessingAuthBlocState value)? processing,
     TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult? Function(ErrorAuthBlocState value)? error,
@@ -1104,6 +1305,7 @@ class _$AuthenticatedAuthBlocState extends AuthenticatedAuthBlocState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
     TResult Function(ProcessingAuthBlocState value)? processing,
     TResult Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult Function(ErrorAuthBlocState value)? error,
@@ -1223,6 +1425,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   TResult when<TResult extends Object?>({
     required TResult Function(UserEntity? user, String message)
         notAuthenticated,
+    required TResult Function(UserEntity? user, String message) unregistered,
     required TResult Function(UserEntity? user, String message) processing,
     required TResult Function(UserEntity? user, String message) authenticated,
     required TResult Function(UserEntity? user, Object error, String message)
@@ -1235,6 +1438,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserEntity? user, String message)? notAuthenticated,
+    TResult? Function(UserEntity? user, String message)? unregistered,
     TResult? Function(UserEntity? user, String message)? processing,
     TResult? Function(UserEntity? user, String message)? authenticated,
     TResult? Function(UserEntity? user, Object error, String message)? error,
@@ -1246,6 +1450,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserEntity? user, String message)? notAuthenticated,
+    TResult Function(UserEntity? user, String message)? unregistered,
     TResult Function(UserEntity? user, String message)? processing,
     TResult Function(UserEntity? user, String message)? authenticated,
     TResult Function(UserEntity? user, Object error, String message)? error,
@@ -1262,6 +1467,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   TResult map<TResult extends Object?>({
     required TResult Function(NotAuthenticatedAuthBlocState value)
         notAuthenticated,
+    required TResult Function(UnregisteredAuthBlocState value) unregistered,
     required TResult Function(ProcessingAuthBlocState value) processing,
     required TResult Function(AuthenticatedAuthBlocState value) authenticated,
     required TResult Function(ErrorAuthBlocState value) error,
@@ -1273,6 +1479,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult? Function(UnregisteredAuthBlocState value)? unregistered,
     TResult? Function(ProcessingAuthBlocState value)? processing,
     TResult? Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult? Function(ErrorAuthBlocState value)? error,
@@ -1284,6 +1491,7 @@ class _$ErrorAuthBlocState extends ErrorAuthBlocState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NotAuthenticatedAuthBlocState value)? notAuthenticated,
+    TResult Function(UnregisteredAuthBlocState value)? unregistered,
     TResult Function(ProcessingAuthBlocState value)? processing,
     TResult Function(AuthenticatedAuthBlocState value)? authenticated,
     TResult Function(ErrorAuthBlocState value)? error,

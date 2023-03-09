@@ -39,6 +39,12 @@ class AuthBlocState with _$AuthBlocState {
     @Default('Idle') final String message,
   }) = NotAuthenticatedAuthBlocState;
 
+  /// Не зарегистрирован
+  const factory AuthBlocState.unregistered({
+    required final UserEntity? user,
+    @Default('Idle') final String message,
+  }) = UnregisteredAuthBlocState;
+
   /// В обработке
   const factory AuthBlocState.processing({
     required final UserEntity? user,
@@ -142,6 +148,7 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
       emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the AuthBLoC: $err', stackTrace);
+      emit(AuthBlocState.unregistered(user: state.user));
       emit(AuthBlocState.error(user: state.user, error: err));
       rethrow;
     } finally {

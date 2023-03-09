@@ -15,10 +15,10 @@ abstract class AppSnackBar {
 
   static void showSnackBarWithError(BuildContext context, ErrorEntity error) {
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 50),
         content: SingleChildScrollView(
           child: Text(
-            "Error: ${error.errorMessage}, Message: ${error.message}",
+            "Error: ${error.message}",
             maxLines: 5,
           ),
         )));
