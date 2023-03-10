@@ -7,6 +7,8 @@ environment:
   sdk: '>=3.0.0-266.0.dev <4.0.0'
 
 dependencies:
+  bloc: ^8.1.1
+  bloc_concurrency: ^0.2.1
   cloud_firestore: ^4.4.3
   firebase_auth: ^4.2.9
   firebase_core: ^2.7.0
@@ -14,11 +16,20 @@ dependencies:
   firebase_storage: ^11.0.14
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.2
+  freezed: ^2.3.2
+  get_it: ^7.2.0
+  injectable: ^2.1.0
+  injectable_generator: ^2.1.4
+  json_annotation: ^4.8.0
+  l: ^3.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.0
+  json_serializable: ^6.6.1
 
 flutter:
   uses-material-design: true

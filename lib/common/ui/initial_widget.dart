@@ -1,32 +1,33 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kind_owl/common/domain/di/init_di.dart';
+
+import 'package:kind_owl/common/domain/utils/utils.dart';
+import 'package:kind_owl/common/ui/app_components/app_loader.dart';
 import 'package:kind_owl/common/ui/root_screen.dart';
-import 'package:kind_owl/firebase_options.dart';
+import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
+import 'package:l/l.dart';
 
-class InitialWidget extends StatefulWidget {
-  const InitialWidget({super.key});
-
-  @override
-  State<InitialWidget> createState() => _InitialWidgetState();
-}
-
-class _InitialWidgetState extends State<InitialWidget> {
+class InitialWidget extends StatelessWidget {
+  const InitialWidget({super.key, required this.env});
+  final String env;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Center(
-        child: FutureBuilder(
-            future: Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform,
-            ),
-            builder: (context, snapshot) {
-              return snapshot.hasData
-                  ? const RootScreen()
-                  : snapshot.hasError
-                      ? const Text("ERROR")
-                      : const CircularProgressIndicator();
-            }),
-      ),
-    );
+    return FutureBuilder(
+        future: Utils.preloadAllAppValues(env),
+        builder: (context, snapshot) {
+          late Widget widgetToShow;
+          if (snapshot.hasData) {
+            widgetToShow = const RootScreen();
+          } else if (snapshot.hasError) {
+            widgetToShow = const Text("ERROR");
+          } else {
+            widgetToShow = const AppLoader();
+          }
+          return MultiBlocProvider(providers: [
+            BlocProvider(
+                create: (BuildContext context) => getIt.get<AuthBLoC>())
+          ], child: MaterialApp(home: widgetToShow));
+        });
   }
 }
