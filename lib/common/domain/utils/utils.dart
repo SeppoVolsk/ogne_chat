@@ -9,8 +9,8 @@ abstract class Utils {
       initDi(env);
       preloadResult = getIt<IRemoteService>().prepare();
     } catch (e) {
-      l.e('preloadAllAppValues: an error occured');
-      throw Error();
+      l.e('preloadAllAppValues: an error occured\n ${e.toString()}');
+      rethrow;
     }
     return preloadResult;
   }
