@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kind_owl/common/data/i_remote_service.dart';
+import 'package:kind_owl/common/data/i_auth_service.dart';
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart';
 import 'package:injectable/injectable.dart';
@@ -9,14 +9,14 @@ import 'package:l/l.dart';
 @Singleton(as: IAuthRepository)
 @prod
 class FirebaseAuthRepository implements IAuthRepository {
-  final IRemoteService authService;
+  final IAuthService authService;
 
   FirebaseAuthRepository(this.authService);
 
+  late final User? userDTO;
   @override
   Future<UserEntity> signIn(
       {required String email, required String password}) async {
-    late final User? userDTO;
     try {
       userDTO = await authService.signIn(email: email, password: password);
     } catch (e) {
@@ -35,7 +35,7 @@ class FirebaseAuthRepository implements IAuthRepository {
   @override
   Future<UserEntity> register(
       {required String email, required String password}) async {
-    late final User? userDTO;
+    //late final User? userDTO;
     try {
       userDTO = await authService.register(email: email, password: password);
     } catch (e) {

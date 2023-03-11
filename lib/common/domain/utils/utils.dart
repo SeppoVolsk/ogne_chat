@@ -1,4 +1,4 @@
-import 'package:kind_owl/common/data/i_remote_service.dart';
+import 'package:kind_owl/common/data/i_auth_service.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:l/l.dart';
 
@@ -7,7 +7,7 @@ abstract class Utils {
     late dynamic preloadResult;
     try {
       initDi(env);
-      preloadResult = getIt<IRemoteService>().prepare();
+      preloadResult = getIt<IAuthService>().prepare();
     } catch (e) {
       l.e('preloadAllAppValues: an error occured\n ${e.toString()}');
       rethrow;

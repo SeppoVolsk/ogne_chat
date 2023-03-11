@@ -1,8 +1,4 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
-abstract class IRemoteService {
+abstract class IAuthService {
   dynamic prepare() {}
 
   dynamic signIn({required String email, required String password}) {}
