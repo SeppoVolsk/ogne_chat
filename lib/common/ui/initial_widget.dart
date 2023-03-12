@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
 
 import 'package:kind_owl/common/domain/utils/utils.dart';
-import 'package:kind_owl/common/ui/app_components/app_loader.dart';
-import 'package:kind_owl/common/ui/root_screen.dart';
+import 'package:kind_owl/common/ui/app_components/app_loading_widget.dart';
+import 'package:kind_owl/common/ui/root_screen_builder.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:l/l.dart';
 
@@ -18,15 +18,14 @@ class InitialWidget extends StatelessWidget {
         builder: (context, snapshot) {
           late Widget widgetToShow;
           if (snapshot.hasData) {
-            widgetToShow = const RootScreen();
+            widgetToShow = const RootScreenBuilder();
           } else if (snapshot.hasError) {
             widgetToShow = const Text("ERROR");
           } else {
-            widgetToShow = const AppLoader();
+            widgetToShow = const AppLoadingWidget();
           }
           return MultiBlocProvider(providers: [
-            BlocProvider(
-                create: (BuildContext context) => getIt.get<AuthBLoC>())
+            BlocProvider(create: (context) => getIt.get<AuthBLoC>())
           ], child: MaterialApp(home: widgetToShow));
         });
   }

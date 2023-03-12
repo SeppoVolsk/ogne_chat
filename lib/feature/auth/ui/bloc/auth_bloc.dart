@@ -3,8 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart';
-import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart';
+
 import 'package:l/l.dart';
 part 'auth_bloc.freezed.dart';
 
@@ -76,7 +77,7 @@ class AuthBlocState with _$AuthBlocState {
 }
 
 /// Buisiness Logic Component AuthBLoC
-@Injectable(order: 1)
+@Injectable()
 class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
     implements EventSink<AuthBlocEvent> {
   AuthBLoC({

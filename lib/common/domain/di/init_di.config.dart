@@ -9,13 +9,13 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:kind_owl/common/data/i_auth_service.dart' as _i3;
 import 'package:kind_owl/common/data/i_io_service.dart' as _i5;
+import 'package:kind_owl/common/domain/entities/user_entity.dart' as _i12;
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart' as _i7;
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart' as _i9;
 import 'package:kind_owl/feature/auth/data/firebase_auth_service.dart' as _i4;
 import 'package:kind_owl/feature/auth/domain/firebase_auth_repository.dart'
     as _i8;
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart' as _i11;
-import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart' as _i12;
 import 'package:kind_owl/feature/main/data/firebase_io_service.dart' as _i6;
 import 'package:kind_owl/feature/main/domain/firebase_io_repository.dart'
     as _i10;

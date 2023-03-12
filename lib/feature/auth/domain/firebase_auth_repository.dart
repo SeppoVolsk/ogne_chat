@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kind_owl/common/data/i_auth_service.dart';
+import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart';
-import 'package:kind_owl/feature/auth/ui/bloc/user_entity.dart';
 import 'package:injectable/injectable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:l/l.dart';

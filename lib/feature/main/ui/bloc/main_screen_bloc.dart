@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
-
-import 'chat_member_entity.dart';
+import 'package:kind_owl/feature/main/domain/entities/main_screen_data_entity.dart';
 
 part 'main_screen_bloc.freezed.dart';
 
@@ -16,25 +16,25 @@ class MainScreenBLoCState with _$MainScreenBLoCState {
 
   /// Idling state
   const factory MainScreenBLoCState.offChat({
-    required final ChatMemberEntity? data,
-    @Default('Idle') final String message,
+    required final MainScreenDataEntity? data,
+    @Default('off Chat') final String message,
   }) = OffChatMainScreenBLoCState;
 
   /// Processing
   const factory MainScreenBLoCState.processing({
-    required final ChatMemberEntity? data,
+    required final MainScreenDataEntity? data,
     @Default('Processing') final String message,
   }) = ProcessingMainScreenBLoCState;
 
   /// Successful
   const factory MainScreenBLoCState.onChat({
-    required final ChatMemberEntity? data,
-    @Default('Successful') final String message,
+    required final MainScreenDataEntity? data,
+    @Default('on Chat') final String message,
   }) = OnChatMainScreenBLoCState;
 
   /// An error has occurred
   const factory MainScreenBLoCState.error({
-    required final ChatMemberEntity? data,
+    required final MainScreenDataEntity? data,
     @Default('An error has occurred') final String message,
   }) = ErrorMainScreenBLoCState;
 
@@ -72,6 +72,7 @@ class MainScreenBLoCEvent with _$MainScreenBLoCEvent {
 }
 
 /// Buisiness Logic Component MainScreenBLoC
+
 class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
     implements EventSink<MainScreenBLoCEvent> {
   MainScreenBLoC({
@@ -81,7 +82,7 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
         super(
           initialState ??
               MainScreenBLoCState.offChat(
-                data: ChatMemberEntity(),
+                data: MainScreenDataEntity(),
                 message: 'Initial idle state',
               ),
         ) {

@@ -16,31 +16,33 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainScreenBLoCState {
-  ChatMemberEntity? get data => throw _privateConstructorUsedError;
+  MainScreenDataEntity? get data => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ChatMemberEntity? data, String message) offChat,
-    required TResult Function(ChatMemberEntity? data, String message)
+    required TResult Function(MainScreenDataEntity? data, String message)
+        offChat,
+    required TResult Function(MainScreenDataEntity? data, String message)
         processing,
-    required TResult Function(ChatMemberEntity? data, String message) onChat,
-    required TResult Function(ChatMemberEntity? data, String message) error,
+    required TResult Function(MainScreenDataEntity? data, String message)
+        onChat,
+    required TResult Function(MainScreenDataEntity? data, String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ChatMemberEntity? data, String message)? offChat,
-    TResult? Function(ChatMemberEntity? data, String message)? processing,
-    TResult? Function(ChatMemberEntity? data, String message)? onChat,
-    TResult? Function(ChatMemberEntity? data, String message)? error,
+    TResult? Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? processing,
+    TResult? Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ChatMemberEntity? data, String message)? offChat,
-    TResult Function(ChatMemberEntity? data, String message)? processing,
-    TResult Function(ChatMemberEntity? data, String message)? onChat,
-    TResult Function(ChatMemberEntity? data, String message)? error,
+    TResult Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult Function(MainScreenDataEntity? data, String message)? processing,
+    TResult Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult Function(MainScreenDataEntity? data, String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -81,9 +83,9 @@ abstract class $MainScreenBLoCStateCopyWith<$Res> {
           MainScreenBLoCState value, $Res Function(MainScreenBLoCState) then) =
       _$MainScreenBLoCStateCopyWithImpl<$Res, MainScreenBLoCState>;
   @useResult
-  $Res call({ChatMemberEntity? data, String message});
+  $Res call({MainScreenDataEntity? data, String message});
 
-  $ChatMemberEntityCopyWith<$Res>? get data;
+  $MainScreenDataEntityCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -106,7 +108,7 @@ class _$MainScreenBLoCStateCopyWithImpl<$Res, $Val extends MainScreenBLoCState>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ChatMemberEntity?,
+              as MainScreenDataEntity?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -116,12 +118,12 @@ class _$MainScreenBLoCStateCopyWithImpl<$Res, $Val extends MainScreenBLoCState>
 
   @override
   @pragma('vm:prefer-inline')
-  $ChatMemberEntityCopyWith<$Res>? get data {
+  $MainScreenDataEntityCopyWith<$Res>? get data {
     if (_value.data == null) {
       return null;
     }
 
-    return $ChatMemberEntityCopyWith<$Res>(_value.data!, (value) {
+    return $MainScreenDataEntityCopyWith<$Res>(_value.data!, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -136,10 +138,10 @@ abstract class _$$OffChatMainScreenBLoCStateCopyWith<$Res>
       __$$OffChatMainScreenBLoCStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatMemberEntity? data, String message});
+  $Res call({MainScreenDataEntity? data, String message});
 
   @override
-  $ChatMemberEntityCopyWith<$Res>? get data;
+  $MainScreenDataEntityCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -162,7 +164,7 @@ class __$$OffChatMainScreenBLoCStateCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ChatMemberEntity?,
+              as MainScreenDataEntity?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -175,11 +177,11 @@ class __$$OffChatMainScreenBLoCStateCopyWithImpl<$Res>
 
 class _$OffChatMainScreenBLoCState extends OffChatMainScreenBLoCState {
   const _$OffChatMainScreenBLoCState(
-      {required this.data, this.message = 'Idle'})
+      {required this.data, this.message = 'off Chat'})
       : super._();
 
   @override
-  final ChatMemberEntity? data;
+  final MainScreenDataEntity? data;
   @override
   @JsonKey()
   final String message;
@@ -211,11 +213,13 @@ class _$OffChatMainScreenBLoCState extends OffChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ChatMemberEntity? data, String message) offChat,
-    required TResult Function(ChatMemberEntity? data, String message)
+    required TResult Function(MainScreenDataEntity? data, String message)
+        offChat,
+    required TResult Function(MainScreenDataEntity? data, String message)
         processing,
-    required TResult Function(ChatMemberEntity? data, String message) onChat,
-    required TResult Function(ChatMemberEntity? data, String message) error,
+    required TResult Function(MainScreenDataEntity? data, String message)
+        onChat,
+    required TResult Function(MainScreenDataEntity? data, String message) error,
   }) {
     return offChat(data, message);
   }
@@ -223,10 +227,10 @@ class _$OffChatMainScreenBLoCState extends OffChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ChatMemberEntity? data, String message)? offChat,
-    TResult? Function(ChatMemberEntity? data, String message)? processing,
-    TResult? Function(ChatMemberEntity? data, String message)? onChat,
-    TResult? Function(ChatMemberEntity? data, String message)? error,
+    TResult? Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? processing,
+    TResult? Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? error,
   }) {
     return offChat?.call(data, message);
   }
@@ -234,10 +238,10 @@ class _$OffChatMainScreenBLoCState extends OffChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ChatMemberEntity? data, String message)? offChat,
-    TResult Function(ChatMemberEntity? data, String message)? processing,
-    TResult Function(ChatMemberEntity? data, String message)? onChat,
-    TResult Function(ChatMemberEntity? data, String message)? error,
+    TResult Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult Function(MainScreenDataEntity? data, String message)? processing,
+    TResult Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult Function(MainScreenDataEntity? data, String message)? error,
     required TResult orElse(),
   }) {
     if (offChat != null) {
@@ -286,12 +290,12 @@ class _$OffChatMainScreenBLoCState extends OffChatMainScreenBLoCState {
 
 abstract class OffChatMainScreenBLoCState extends MainScreenBLoCState {
   const factory OffChatMainScreenBLoCState(
-      {required final ChatMemberEntity? data,
+      {required final MainScreenDataEntity? data,
       final String message}) = _$OffChatMainScreenBLoCState;
   const OffChatMainScreenBLoCState._() : super._();
 
   @override
-  ChatMemberEntity? get data;
+  MainScreenDataEntity? get data;
   @override
   String get message;
   @override
@@ -309,10 +313,10 @@ abstract class _$$ProcessingMainScreenBLoCStateCopyWith<$Res>
       __$$ProcessingMainScreenBLoCStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatMemberEntity? data, String message});
+  $Res call({MainScreenDataEntity? data, String message});
 
   @override
-  $ChatMemberEntityCopyWith<$Res>? get data;
+  $MainScreenDataEntityCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -335,7 +339,7 @@ class __$$ProcessingMainScreenBLoCStateCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ChatMemberEntity?,
+              as MainScreenDataEntity?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -352,7 +356,7 @@ class _$ProcessingMainScreenBLoCState extends ProcessingMainScreenBLoCState {
       : super._();
 
   @override
-  final ChatMemberEntity? data;
+  final MainScreenDataEntity? data;
   @override
   @JsonKey()
   final String message;
@@ -384,11 +388,13 @@ class _$ProcessingMainScreenBLoCState extends ProcessingMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ChatMemberEntity? data, String message) offChat,
-    required TResult Function(ChatMemberEntity? data, String message)
+    required TResult Function(MainScreenDataEntity? data, String message)
+        offChat,
+    required TResult Function(MainScreenDataEntity? data, String message)
         processing,
-    required TResult Function(ChatMemberEntity? data, String message) onChat,
-    required TResult Function(ChatMemberEntity? data, String message) error,
+    required TResult Function(MainScreenDataEntity? data, String message)
+        onChat,
+    required TResult Function(MainScreenDataEntity? data, String message) error,
   }) {
     return processing(data, message);
   }
@@ -396,10 +402,10 @@ class _$ProcessingMainScreenBLoCState extends ProcessingMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ChatMemberEntity? data, String message)? offChat,
-    TResult? Function(ChatMemberEntity? data, String message)? processing,
-    TResult? Function(ChatMemberEntity? data, String message)? onChat,
-    TResult? Function(ChatMemberEntity? data, String message)? error,
+    TResult? Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? processing,
+    TResult? Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? error,
   }) {
     return processing?.call(data, message);
   }
@@ -407,10 +413,10 @@ class _$ProcessingMainScreenBLoCState extends ProcessingMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ChatMemberEntity? data, String message)? offChat,
-    TResult Function(ChatMemberEntity? data, String message)? processing,
-    TResult Function(ChatMemberEntity? data, String message)? onChat,
-    TResult Function(ChatMemberEntity? data, String message)? error,
+    TResult Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult Function(MainScreenDataEntity? data, String message)? processing,
+    TResult Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult Function(MainScreenDataEntity? data, String message)? error,
     required TResult orElse(),
   }) {
     if (processing != null) {
@@ -459,12 +465,12 @@ class _$ProcessingMainScreenBLoCState extends ProcessingMainScreenBLoCState {
 
 abstract class ProcessingMainScreenBLoCState extends MainScreenBLoCState {
   const factory ProcessingMainScreenBLoCState(
-      {required final ChatMemberEntity? data,
+      {required final MainScreenDataEntity? data,
       final String message}) = _$ProcessingMainScreenBLoCState;
   const ProcessingMainScreenBLoCState._() : super._();
 
   @override
-  ChatMemberEntity? get data;
+  MainScreenDataEntity? get data;
   @override
   String get message;
   @override
@@ -482,10 +488,10 @@ abstract class _$$OnChatMainScreenBLoCStateCopyWith<$Res>
       __$$OnChatMainScreenBLoCStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatMemberEntity? data, String message});
+  $Res call({MainScreenDataEntity? data, String message});
 
   @override
-  $ChatMemberEntityCopyWith<$Res>? get data;
+  $MainScreenDataEntityCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -506,7 +512,7 @@ class __$$OnChatMainScreenBLoCStateCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ChatMemberEntity?,
+              as MainScreenDataEntity?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -519,11 +525,11 @@ class __$$OnChatMainScreenBLoCStateCopyWithImpl<$Res>
 
 class _$OnChatMainScreenBLoCState extends OnChatMainScreenBLoCState {
   const _$OnChatMainScreenBLoCState(
-      {required this.data, this.message = 'Successful'})
+      {required this.data, this.message = 'on Chat'})
       : super._();
 
   @override
-  final ChatMemberEntity? data;
+  final MainScreenDataEntity? data;
   @override
   @JsonKey()
   final String message;
@@ -555,11 +561,13 @@ class _$OnChatMainScreenBLoCState extends OnChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ChatMemberEntity? data, String message) offChat,
-    required TResult Function(ChatMemberEntity? data, String message)
+    required TResult Function(MainScreenDataEntity? data, String message)
+        offChat,
+    required TResult Function(MainScreenDataEntity? data, String message)
         processing,
-    required TResult Function(ChatMemberEntity? data, String message) onChat,
-    required TResult Function(ChatMemberEntity? data, String message) error,
+    required TResult Function(MainScreenDataEntity? data, String message)
+        onChat,
+    required TResult Function(MainScreenDataEntity? data, String message) error,
   }) {
     return onChat(data, message);
   }
@@ -567,10 +575,10 @@ class _$OnChatMainScreenBLoCState extends OnChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ChatMemberEntity? data, String message)? offChat,
-    TResult? Function(ChatMemberEntity? data, String message)? processing,
-    TResult? Function(ChatMemberEntity? data, String message)? onChat,
-    TResult? Function(ChatMemberEntity? data, String message)? error,
+    TResult? Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? processing,
+    TResult? Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? error,
   }) {
     return onChat?.call(data, message);
   }
@@ -578,10 +586,10 @@ class _$OnChatMainScreenBLoCState extends OnChatMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ChatMemberEntity? data, String message)? offChat,
-    TResult Function(ChatMemberEntity? data, String message)? processing,
-    TResult Function(ChatMemberEntity? data, String message)? onChat,
-    TResult Function(ChatMemberEntity? data, String message)? error,
+    TResult Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult Function(MainScreenDataEntity? data, String message)? processing,
+    TResult Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult Function(MainScreenDataEntity? data, String message)? error,
     required TResult orElse(),
   }) {
     if (onChat != null) {
@@ -630,12 +638,12 @@ class _$OnChatMainScreenBLoCState extends OnChatMainScreenBLoCState {
 
 abstract class OnChatMainScreenBLoCState extends MainScreenBLoCState {
   const factory OnChatMainScreenBLoCState(
-      {required final ChatMemberEntity? data,
+      {required final MainScreenDataEntity? data,
       final String message}) = _$OnChatMainScreenBLoCState;
   const OnChatMainScreenBLoCState._() : super._();
 
   @override
-  ChatMemberEntity? get data;
+  MainScreenDataEntity? get data;
   @override
   String get message;
   @override
@@ -652,10 +660,10 @@ abstract class _$$ErrorMainScreenBLoCStateCopyWith<$Res>
       __$$ErrorMainScreenBLoCStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatMemberEntity? data, String message});
+  $Res call({MainScreenDataEntity? data, String message});
 
   @override
-  $ChatMemberEntityCopyWith<$Res>? get data;
+  $MainScreenDataEntityCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -676,7 +684,7 @@ class __$$ErrorMainScreenBLoCStateCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ChatMemberEntity?,
+              as MainScreenDataEntity?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -693,7 +701,7 @@ class _$ErrorMainScreenBLoCState extends ErrorMainScreenBLoCState {
       : super._();
 
   @override
-  final ChatMemberEntity? data;
+  final MainScreenDataEntity? data;
   @override
   @JsonKey()
   final String message;
@@ -726,11 +734,13 @@ class _$ErrorMainScreenBLoCState extends ErrorMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ChatMemberEntity? data, String message) offChat,
-    required TResult Function(ChatMemberEntity? data, String message)
+    required TResult Function(MainScreenDataEntity? data, String message)
+        offChat,
+    required TResult Function(MainScreenDataEntity? data, String message)
         processing,
-    required TResult Function(ChatMemberEntity? data, String message) onChat,
-    required TResult Function(ChatMemberEntity? data, String message) error,
+    required TResult Function(MainScreenDataEntity? data, String message)
+        onChat,
+    required TResult Function(MainScreenDataEntity? data, String message) error,
   }) {
     return error(data, message);
   }
@@ -738,10 +748,10 @@ class _$ErrorMainScreenBLoCState extends ErrorMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ChatMemberEntity? data, String message)? offChat,
-    TResult? Function(ChatMemberEntity? data, String message)? processing,
-    TResult? Function(ChatMemberEntity? data, String message)? onChat,
-    TResult? Function(ChatMemberEntity? data, String message)? error,
+    TResult? Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? processing,
+    TResult? Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult? Function(MainScreenDataEntity? data, String message)? error,
   }) {
     return error?.call(data, message);
   }
@@ -749,10 +759,10 @@ class _$ErrorMainScreenBLoCState extends ErrorMainScreenBLoCState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ChatMemberEntity? data, String message)? offChat,
-    TResult Function(ChatMemberEntity? data, String message)? processing,
-    TResult Function(ChatMemberEntity? data, String message)? onChat,
-    TResult Function(ChatMemberEntity? data, String message)? error,
+    TResult Function(MainScreenDataEntity? data, String message)? offChat,
+    TResult Function(MainScreenDataEntity? data, String message)? processing,
+    TResult Function(MainScreenDataEntity? data, String message)? onChat,
+    TResult Function(MainScreenDataEntity? data, String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -801,12 +811,12 @@ class _$ErrorMainScreenBLoCState extends ErrorMainScreenBLoCState {
 
 abstract class ErrorMainScreenBLoCState extends MainScreenBLoCState {
   const factory ErrorMainScreenBLoCState(
-      {required final ChatMemberEntity? data,
+      {required final MainScreenDataEntity? data,
       final String message}) = _$ErrorMainScreenBLoCState;
   const ErrorMainScreenBLoCState._() : super._();
 
   @override
-  ChatMemberEntity? get data;
+  MainScreenDataEntity? get data;
   @override
   String get message;
   @override
