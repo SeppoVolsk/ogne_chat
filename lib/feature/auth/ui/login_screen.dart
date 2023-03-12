@@ -27,12 +27,14 @@ class LoginScreen extends StatelessWidget {
                   AppTextField(
                     controller: controllerEmail,
                     labelText: "Email",
+                    defaultText: "1111111@aa.aa",
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: controllerPassword,
                     labelText: "Password",
                     obscureText: true,
+                    defaultText: "111111",
                   ),
                   const SizedBox(height: 16),
                   AppTextButton(
