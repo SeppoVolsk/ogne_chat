@@ -31,10 +31,12 @@ class FirebaseIoService implements IIoService {
           .where(FirestoreConstans.nickName, isEqualTo: params['textSearch'])
           .get();
 
-  Future<dynamic> _fetchAllUsers(Map<String, dynamic> params) async =>
+  Future<dynamic> _fetchAllUsers(
+          Map<String, dynamic> params) async =>
       await fbStore
-          .collection(params['pathCollection'])
-          .limit(params['limit'])
+          .collection(
+              params['pathCollection'] ?? FirestoreConstans.pathUserCollection)
+          .limit(params['limit'] ?? FirestoreConstans.limit)
           .get();
 
   Future<dynamic> _fetchChatMessages(Map<String, dynamic> params) async =>

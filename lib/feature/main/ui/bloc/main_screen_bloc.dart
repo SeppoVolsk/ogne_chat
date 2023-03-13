@@ -72,18 +72,18 @@ class MainScreenBLoCEvent with _$MainScreenBLoCEvent {
 }
 
 /// Buisiness Logic Component MainScreenBLoC
-
+@injectable
 class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
     implements EventSink<MainScreenBLoCEvent> {
   MainScreenBLoC({
     required final IIoRepository repository,
-    final MainScreenBLoCState? initialState,
+    @factoryParam final MainScreenBLoCState? initialState,
   })  : _repository = repository,
         super(
           initialState ??
               MainScreenBLoCState.offChat(
                 data: MainScreenDataEntity(),
-                message: 'Initial idle state',
+                message: 'Initial state',
               ),
         ) {
     on<MainScreenBLoCEvent>(

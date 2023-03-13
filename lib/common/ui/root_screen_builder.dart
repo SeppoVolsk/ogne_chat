@@ -8,7 +8,7 @@ import 'package:kind_owl/common/ui/app_components/app_snack_bar.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/login_screen.dart';
 import 'package:kind_owl/feature/auth/ui/register_screen.dart';
-import 'package:kind_owl/feature/main/ui/main_screen.dart';
+import 'package:kind_owl/feature/main/ui/main_screen_builder.dart';
 import 'package:l/l.dart';
 
 class RootScreenBuilder extends StatefulWidget {
@@ -25,7 +25,7 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
     return BlocConsumer<AuthBLoC, AuthBlocState>(
         builder: (context, state) => state.maybeMap(
             notAuthenticated: (_) => LoginScreen(),
-            authenticated: (_) => const MainScreen(),
+            authenticated: (_) => const MainScreenBuilder(),
             processing: (_) => const AppLoadingWidget(),
             unregistered: (_) => const AppLoadingWidget(),
             orElse: () => _stayOnRegisteredScreen() == true
