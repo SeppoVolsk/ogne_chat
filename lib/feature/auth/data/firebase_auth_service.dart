@@ -2,26 +2,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kind_owl/common/data/i_remote_service.dart';
-import 'package:kind_owl/feature/auth/domain/constants/firestore__constans.dart';
+import 'package:kind_owl/common/data/i_auth_service.dart';
+import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/firebase_options.dart';
 import 'package:l/l.dart';
 
-@Singleton(as: IRemoteService)
+@Singleton(as: IAuthService)
 @prod
-class FirebaseRemoteService implements IRemoteService {
+class FirebaseAuthService implements IAuthService {
+  late final FirebaseAuth fbAuth;
+  late final FirebaseFirestore fbStore;
+  User? fbUser;
+
   @override
-  Future prepare() {
-    return Firebase.initializeApp(
+  Future prepare() async {
+    final prepare = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    fbAuth = FirebaseAuth.instance;
+    fbStore = FirebaseFirestore.instance;
+    return prepare;
   }
 
   @override
   Future<User?> signIn(
       {required String email, required String password}) async {
-    final fbAuth = FirebaseAuth.instance;
-    User? fbUser;
     try {
       final userCredential = await fbAuth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -36,9 +41,6 @@ class FirebaseRemoteService implements IRemoteService {
   @override
   Future<User?> register(
       {required String email, required String password}) async {
-    final fbAuth = FirebaseAuth.instance;
-    final fbStore = FirebaseFirestore.instance;
-    User? fbUser;
     try {
       final userCredential = await fbAuth.createUserWithEmailAndPassword(
           email: email, password: password);

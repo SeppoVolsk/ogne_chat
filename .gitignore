@@ -40,6 +40,8 @@ app.*.symbols
 app.*.map.json
 lib/firebase_options.dart
 *.json
+*.g.dart
+*.freezed.dart
 
 
 # Android Studio will place build artifacts here

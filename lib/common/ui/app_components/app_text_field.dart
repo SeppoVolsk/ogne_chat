@@ -5,14 +5,17 @@ class AppTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.labelText,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.defaultText});
 
   final TextEditingController controller;
   final String labelText;
   final bool obscureText; //Hidden text
+  final String? defaultText;
 
   @override
   Widget build(BuildContext context) {
+    controller.text = defaultText ?? '';
     return TextFormField(
       obscureText: obscureText,
       validator: emptyValidator,
