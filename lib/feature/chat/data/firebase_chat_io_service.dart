@@ -6,24 +6,31 @@ class FirebaseChatIoService implements IIoService {
   final fbStore = FirebaseFirestore.instance;
 
   @override
-  Future<dynamic> fetch(Map<String, dynamic> params) async => await fbStore
-      .collection(FirestoreConstans.pathMessageCollection)
-      .doc(params['groupChatId'])
-      .collection(params['groupChatId'])
-      .orderBy(FirestoreConstans.timestamp, descending: true)
-      .limit(params['limit'])
-      .get();
+
+  /// Pull messages
+  Future<dynamic> fetch(Map<String, dynamic> params) async {
+    final query = await fbStore
+        .collection(FirestoreConstans.pathMessageCollection)
+        .doc(params['groupChatId'])
+        .collection(params['groupChatId'])
+        .orderBy(FirestoreConstans.timestamp, descending: true)
+        .limit(params['limit'])
+        .get();
+    return query.docs;
+  }
 
   @override
-  send(Map<String, dynamic> params) async {
+
+  /// Send message
+  Future<dynamic> send(Map<String, dynamic> params) async {
+    final dataToSend = params;
     final documentReference = fbStore
         .collection(FirestoreConstans.pathMessageCollection)
         .doc(params['groupChatId'])
         .collection('groupChatId')
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
-    // TO DO: make messageChat object (MessageChat model)
     fbStore.runTransaction((transaction) async {
-      //transaction.set(documentReference, messageChat.toJson());
+      transaction.set(documentReference, dataToSend);
     });
   }
 }
