@@ -1,3 +1,3 @@
-# kind_owl
+# Ognechat
 
-A new Flutter project.
+A Flutter chat project.
