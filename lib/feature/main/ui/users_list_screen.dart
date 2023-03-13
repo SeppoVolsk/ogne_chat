@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
+import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key, required this.users});
@@ -20,7 +22,11 @@ class _UsersListScreenState extends State<UsersListScreen> {
               parent: AlwaysScrollableScrollPhysics()),
           itemCount: widget.users.length,
           itemBuilder: (context, index) => widget.users.isNotEmpty
-              ? UserCard(user: widget.users[index])
+              ? InkWell(
+                  child: UserCard(user: widget.users[index]),
+                  onTap: () => BlocProvider.of<MainScreenBLoC>(context)
+                      .add(const MainScreenBLoCEvent.create()),
+                )
               : const Text("Nobody's here.."),
         ),
       ),

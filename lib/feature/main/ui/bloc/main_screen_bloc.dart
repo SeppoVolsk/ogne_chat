@@ -119,7 +119,19 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
   }
 
   Future<void> _create(CreateMainScreenBLoCEvent event,
-      Emitter<MainScreenBLoCState> emit) async {}
+      Emitter<MainScreenBLoCState> emit) async {
+    try {
+      emit(MainScreenBLoCState.processing(data: state.data));
+      //final newData = await _repository.fetch({});
+      emit(MainScreenBLoCState.onChat(data: state.data));
+    } on Object catch (err, stackTrace) {
+      //l.e('An error occurred in the MainScreenBLoC: $err', stackTrace);
+      emit(MainScreenBLoCState.error(data: state.data));
+      rethrow;
+    } finally {
+      //emit(MainScreenBLoCState.idle(data: state.data));
+    }
+  }
 
   Future<void> _update(UpdateMainScreenBLoCEvent event,
       Emitter<MainScreenBLoCState> emit) async {}
