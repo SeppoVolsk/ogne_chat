@@ -2,15 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
+import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
+import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 import 'package:l/l.dart';
 
 class FirebaseChatIoRepository implements IIoRepository {
   final IIoService ioService;
   final currentUser = FirebaseAuth.instance.currentUser;
+  final UserEntity withUser;
 
-  FirebaseChatIoRepository(this.ioService);
+  FirebaseChatIoRepository(this.ioService, this.withUser);
 
   @override
   fetch(Map<String, dynamic> params) {}
