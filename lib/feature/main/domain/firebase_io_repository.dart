@@ -17,15 +17,19 @@ class FirebaseIoRepository implements IIoRepository {
 
   @override
   Future<MainScreenDataEntity> fetch(Map<String, dynamic> params) async {
-    final List<DocumentSnapshot> docs = await ioService.fetch(params);
-    l.s('io repo ${docs}');
-
-    final res = docs.map((d) => d.toUserEntity());
-    return MainScreenDataEntity(users: res.toList());
+    late final List<DocumentSnapshot> docs;
+    try {
+      docs = await ioService.fetch(params);
+    } catch (e) {
+      l.e(e.toString());
+      rethrow;
+    }
+    final usersIterable = docs.map((d) => d.toUserEntity());
+    return MainScreenDataEntity(users: usersIterable.toList());
   }
 
   @override
-  send() {
+  send(Map<String, dynamic> params) {
     // TODO: implement send
   }
 }

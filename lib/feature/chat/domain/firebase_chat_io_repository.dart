@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
@@ -7,6 +8,7 @@ import 'package:l/l.dart';
 
 class FirebaseChatIoRepository implements IIoRepository {
   final IIoService ioService;
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   FirebaseChatIoRepository(this.ioService);
 
@@ -18,7 +20,7 @@ class FirebaseChatIoRepository implements IIoRepository {
     late final dataToSend;
     try {
       dataToSend = MessageEntity(
-              idFrom: params['idFrom'],
+              idFrom: currentUser?.uid,
               idTo: params['idTo'],
               timestamp: params['timestamp'],
               content: params['content'],

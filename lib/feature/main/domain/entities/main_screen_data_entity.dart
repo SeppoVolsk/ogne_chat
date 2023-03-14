@@ -6,7 +6,7 @@ part 'main_screen_data_entity.g.dart';
 @freezed
 class MainScreenDataEntity with _$MainScreenDataEntity {
   factory MainScreenDataEntity({
-    List<UserEntity>? users,
+    List<UserEntity?>? users,
   }) = _MainScreenDataEntity;
 
   factory MainScreenDataEntity.fromJson(Map<String, dynamic> json) =>

@@ -829,7 +829,7 @@ abstract class ErrorMainScreenBLoCState extends MainScreenBLoCState {
 mixin _$MainScreenBLoCEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() create,
+    required TResult Function(UserEntity? withUser) startChat,
     required TResult Function() fetch,
     required TResult Function() update,
     required TResult Function() delete,
@@ -837,7 +837,7 @@ mixin _$MainScreenBLoCEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? create,
+    TResult? Function(UserEntity? withUser)? startChat,
     TResult? Function()? fetch,
     TResult? Function()? update,
     TResult? Function()? delete,
@@ -845,7 +845,7 @@ mixin _$MainScreenBLoCEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? create,
+    TResult Function(UserEntity? withUser)? startChat,
     TResult Function()? fetch,
     TResult Function()? update,
     TResult Function()? delete,
@@ -854,7 +854,7 @@ mixin _$MainScreenBLoCEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMainScreenBLoCEvent value) create,
+    required TResult Function(StartChatMainScreenBLoCEvent value) startChat,
     required TResult Function(FetchMainScreenBLoCEvent value) fetch,
     required TResult Function(UpdateMainScreenBLoCEvent value) update,
     required TResult Function(DeleteMainScreenBLoCEvent value) delete,
@@ -862,7 +862,7 @@ mixin _$MainScreenBLoCEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMainScreenBLoCEvent value)? create,
+    TResult? Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult? Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult? Function(UpdateMainScreenBLoCEvent value)? update,
     TResult? Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -870,7 +870,7 @@ mixin _$MainScreenBLoCEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMainScreenBLoCEvent value)? create,
+    TResult Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult Function(UpdateMainScreenBLoCEvent value)? update,
     TResult Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -898,75 +898,118 @@ class _$MainScreenBLoCEventCopyWithImpl<$Res, $Val extends MainScreenBLoCEvent>
 }
 
 /// @nodoc
-abstract class _$$CreateMainScreenBLoCEventCopyWith<$Res> {
-  factory _$$CreateMainScreenBLoCEventCopyWith(
-          _$CreateMainScreenBLoCEvent value,
-          $Res Function(_$CreateMainScreenBLoCEvent) then) =
-      __$$CreateMainScreenBLoCEventCopyWithImpl<$Res>;
+abstract class _$$StartChatMainScreenBLoCEventCopyWith<$Res> {
+  factory _$$StartChatMainScreenBLoCEventCopyWith(
+          _$StartChatMainScreenBLoCEvent value,
+          $Res Function(_$StartChatMainScreenBLoCEvent) then) =
+      __$$StartChatMainScreenBLoCEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UserEntity? withUser});
+
+  $UserEntityCopyWith<$Res>? get withUser;
 }
 
 /// @nodoc
-class __$$CreateMainScreenBLoCEventCopyWithImpl<$Res>
-    extends _$MainScreenBLoCEventCopyWithImpl<$Res, _$CreateMainScreenBLoCEvent>
-    implements _$$CreateMainScreenBLoCEventCopyWith<$Res> {
-  __$$CreateMainScreenBLoCEventCopyWithImpl(_$CreateMainScreenBLoCEvent _value,
-      $Res Function(_$CreateMainScreenBLoCEvent) _then)
+class __$$StartChatMainScreenBLoCEventCopyWithImpl<$Res>
+    extends _$MainScreenBLoCEventCopyWithImpl<$Res,
+        _$StartChatMainScreenBLoCEvent>
+    implements _$$StartChatMainScreenBLoCEventCopyWith<$Res> {
+  __$$StartChatMainScreenBLoCEventCopyWithImpl(
+      _$StartChatMainScreenBLoCEvent _value,
+      $Res Function(_$StartChatMainScreenBLoCEvent) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? withUser = freezed,
+  }) {
+    return _then(_$StartChatMainScreenBLoCEvent(
+      withUser: freezed == withUser
+          ? _value.withUser
+          : withUser // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserEntityCopyWith<$Res>? get withUser {
+    if (_value.withUser == null) {
+      return null;
+    }
+
+    return $UserEntityCopyWith<$Res>(_value.withUser!, (value) {
+      return _then(_value.copyWith(withUser: value));
+    });
+  }
 }
 
 /// @nodoc
 
-class _$CreateMainScreenBLoCEvent extends CreateMainScreenBLoCEvent {
-  const _$CreateMainScreenBLoCEvent() : super._();
+class _$StartChatMainScreenBLoCEvent extends StartChatMainScreenBLoCEvent {
+  const _$StartChatMainScreenBLoCEvent({this.withUser}) : super._();
+
+  @override
+  final UserEntity? withUser;
 
   @override
   String toString() {
-    return 'MainScreenBLoCEvent.create()';
+    return 'MainScreenBLoCEvent.startChat(withUser: $withUser)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateMainScreenBLoCEvent);
+            other is _$StartChatMainScreenBLoCEvent &&
+            (identical(other.withUser, withUser) ||
+                other.withUser == withUser));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, withUser);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartChatMainScreenBLoCEventCopyWith<_$StartChatMainScreenBLoCEvent>
+      get copyWith => __$$StartChatMainScreenBLoCEventCopyWithImpl<
+          _$StartChatMainScreenBLoCEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() create,
+    required TResult Function(UserEntity? withUser) startChat,
     required TResult Function() fetch,
     required TResult Function() update,
     required TResult Function() delete,
   }) {
-    return create();
+    return startChat(withUser);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? create,
+    TResult? Function(UserEntity? withUser)? startChat,
     TResult? Function()? fetch,
     TResult? Function()? update,
     TResult? Function()? delete,
   }) {
-    return create?.call();
+    return startChat?.call(withUser);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? create,
+    TResult Function(UserEntity? withUser)? startChat,
     TResult Function()? fetch,
     TResult Function()? update,
     TResult Function()? delete,
     required TResult orElse(),
   }) {
-    if (create != null) {
-      return create();
+    if (startChat != null) {
+      return startChat(withUser);
     }
     return orElse();
   }
@@ -974,44 +1017,50 @@ class _$CreateMainScreenBLoCEvent extends CreateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMainScreenBLoCEvent value) create,
+    required TResult Function(StartChatMainScreenBLoCEvent value) startChat,
     required TResult Function(FetchMainScreenBLoCEvent value) fetch,
     required TResult Function(UpdateMainScreenBLoCEvent value) update,
     required TResult Function(DeleteMainScreenBLoCEvent value) delete,
   }) {
-    return create(this);
+    return startChat(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMainScreenBLoCEvent value)? create,
+    TResult? Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult? Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult? Function(UpdateMainScreenBLoCEvent value)? update,
     TResult? Function(DeleteMainScreenBLoCEvent value)? delete,
   }) {
-    return create?.call(this);
+    return startChat?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMainScreenBLoCEvent value)? create,
+    TResult Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult Function(UpdateMainScreenBLoCEvent value)? update,
     TResult Function(DeleteMainScreenBLoCEvent value)? delete,
     required TResult orElse(),
   }) {
-    if (create != null) {
-      return create(this);
+    if (startChat != null) {
+      return startChat(this);
     }
     return orElse();
   }
 }
 
-abstract class CreateMainScreenBLoCEvent extends MainScreenBLoCEvent {
-  const factory CreateMainScreenBLoCEvent() = _$CreateMainScreenBLoCEvent;
-  const CreateMainScreenBLoCEvent._() : super._();
+abstract class StartChatMainScreenBLoCEvent extends MainScreenBLoCEvent {
+  const factory StartChatMainScreenBLoCEvent({final UserEntity? withUser}) =
+      _$StartChatMainScreenBLoCEvent;
+  const StartChatMainScreenBLoCEvent._() : super._();
+
+  UserEntity? get withUser;
+  @JsonKey(ignore: true)
+  _$$StartChatMainScreenBLoCEventCopyWith<_$StartChatMainScreenBLoCEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1053,7 +1102,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() create,
+    required TResult Function(UserEntity? withUser) startChat,
     required TResult Function() fetch,
     required TResult Function() update,
     required TResult Function() delete,
@@ -1064,7 +1113,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? create,
+    TResult? Function(UserEntity? withUser)? startChat,
     TResult? Function()? fetch,
     TResult? Function()? update,
     TResult? Function()? delete,
@@ -1075,7 +1124,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? create,
+    TResult Function(UserEntity? withUser)? startChat,
     TResult Function()? fetch,
     TResult Function()? update,
     TResult Function()? delete,
@@ -1090,7 +1139,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMainScreenBLoCEvent value) create,
+    required TResult Function(StartChatMainScreenBLoCEvent value) startChat,
     required TResult Function(FetchMainScreenBLoCEvent value) fetch,
     required TResult Function(UpdateMainScreenBLoCEvent value) update,
     required TResult Function(DeleteMainScreenBLoCEvent value) delete,
@@ -1101,7 +1150,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMainScreenBLoCEvent value)? create,
+    TResult? Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult? Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult? Function(UpdateMainScreenBLoCEvent value)? update,
     TResult? Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -1112,7 +1161,7 @@ class _$FetchMainScreenBLoCEvent extends FetchMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMainScreenBLoCEvent value)? create,
+    TResult Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult Function(UpdateMainScreenBLoCEvent value)? update,
     TResult Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -1170,7 +1219,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() create,
+    required TResult Function(UserEntity? withUser) startChat,
     required TResult Function() fetch,
     required TResult Function() update,
     required TResult Function() delete,
@@ -1181,7 +1230,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? create,
+    TResult? Function(UserEntity? withUser)? startChat,
     TResult? Function()? fetch,
     TResult? Function()? update,
     TResult? Function()? delete,
@@ -1192,7 +1241,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? create,
+    TResult Function(UserEntity? withUser)? startChat,
     TResult Function()? fetch,
     TResult Function()? update,
     TResult Function()? delete,
@@ -1207,7 +1256,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMainScreenBLoCEvent value) create,
+    required TResult Function(StartChatMainScreenBLoCEvent value) startChat,
     required TResult Function(FetchMainScreenBLoCEvent value) fetch,
     required TResult Function(UpdateMainScreenBLoCEvent value) update,
     required TResult Function(DeleteMainScreenBLoCEvent value) delete,
@@ -1218,7 +1267,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMainScreenBLoCEvent value)? create,
+    TResult? Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult? Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult? Function(UpdateMainScreenBLoCEvent value)? update,
     TResult? Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -1229,7 +1278,7 @@ class _$UpdateMainScreenBLoCEvent extends UpdateMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMainScreenBLoCEvent value)? create,
+    TResult Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult Function(UpdateMainScreenBLoCEvent value)? update,
     TResult Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -1287,7 +1336,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() create,
+    required TResult Function(UserEntity? withUser) startChat,
     required TResult Function() fetch,
     required TResult Function() update,
     required TResult Function() delete,
@@ -1298,7 +1347,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? create,
+    TResult? Function(UserEntity? withUser)? startChat,
     TResult? Function()? fetch,
     TResult? Function()? update,
     TResult? Function()? delete,
@@ -1309,7 +1358,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? create,
+    TResult Function(UserEntity? withUser)? startChat,
     TResult Function()? fetch,
     TResult Function()? update,
     TResult Function()? delete,
@@ -1324,7 +1373,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMainScreenBLoCEvent value) create,
+    required TResult Function(StartChatMainScreenBLoCEvent value) startChat,
     required TResult Function(FetchMainScreenBLoCEvent value) fetch,
     required TResult Function(UpdateMainScreenBLoCEvent value) update,
     required TResult Function(DeleteMainScreenBLoCEvent value) delete,
@@ -1335,7 +1384,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMainScreenBLoCEvent value)? create,
+    TResult? Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult? Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult? Function(UpdateMainScreenBLoCEvent value)? update,
     TResult? Function(DeleteMainScreenBLoCEvent value)? delete,
@@ -1346,7 +1395,7 @@ class _$DeleteMainScreenBLoCEvent extends DeleteMainScreenBLoCEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMainScreenBLoCEvent value)? create,
+    TResult Function(StartChatMainScreenBLoCEvent value)? startChat,
     TResult Function(FetchMainScreenBLoCEvent value)? fetch,
     TResult Function(UpdateMainScreenBLoCEvent value)? update,
     TResult Function(DeleteMainScreenBLoCEvent value)? delete,

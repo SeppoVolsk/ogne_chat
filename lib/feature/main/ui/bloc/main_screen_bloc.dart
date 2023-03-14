@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
 import 'package:kind_owl/feature/main/domain/entities/main_screen_data_entity.dart';
 
@@ -59,7 +60,8 @@ class MainScreenBLoCEvent with _$MainScreenBLoCEvent {
   const MainScreenBLoCEvent._();
 
   /// Create
-  const factory MainScreenBLoCEvent.create() = CreateMainScreenBLoCEvent;
+  const factory MainScreenBLoCEvent.startChat({UserEntity? withUser}) =
+      StartChatMainScreenBLoCEvent;
 
   /// Fetch
   const factory MainScreenBLoCEvent.fetch() = FetchMainScreenBLoCEvent;
@@ -88,7 +90,7 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
         ) {
     on<MainScreenBLoCEvent>(
       (event, emit) => event.map<Future<void>>(
-        create: (event) => _create(event, emit),
+        startChat: (event) => _startChat(event, emit),
         fetch: (event) => _fetch(event, emit),
         update: (event) => _update(event, emit),
         delete: (event) => _delete(event, emit),
@@ -118,12 +120,14 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
     }
   }
 
-  Future<void> _create(CreateMainScreenBLoCEvent event,
+  Future<void> _startChat(StartChatMainScreenBLoCEvent event,
       Emitter<MainScreenBLoCState> emit) async {
     try {
       emit(MainScreenBLoCState.processing(data: state.data));
-      //final newData = await _repository.fetch({});
-      emit(MainScreenBLoCState.onChat(data: state.data));
+
+      final newData =
+          state.data?.copyWith(users: List.filled(1, event.withUser));
+      emit(MainScreenBLoCState.onChat(data: newData));
     } on Object catch (err, stackTrace) {
       //l.e('An error occurred in the MainScreenBLoC: $err', stackTrace);
       emit(MainScreenBLoCState.error(data: state.data));

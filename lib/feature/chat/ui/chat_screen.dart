@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
+import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
+import 'package:kind_owl/feature/main/ui/users_list_screen.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, required this.withUser});
+  final UserEntity? withUser;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -12,8 +16,11 @@ class _ChatScreenState extends State<ChatScreen> {
   final messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Align(
+    return Scaffold(
+      appBar: AppBar(
+        title: UserCard(user: widget.withUser),
+      ),
+      body: Align(
         alignment: Alignment.bottomLeft,
         child: Row(
           children: [
@@ -26,7 +33,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 flex: 0,
                 child: IconButton(
                   icon: const Icon(Icons.send_rounded),
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseChatIoService()
+                        .send({'message': messageController.text});
+                  },
                 ))
           ],
         ),

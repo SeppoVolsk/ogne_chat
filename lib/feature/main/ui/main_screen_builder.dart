@@ -23,7 +23,9 @@ class MainScreenBuilder extends StatelessWidget {
             ..add(const MainScreenBLoCEvent.fetch()),
       child: BlocConsumer<MainScreenBLoC, MainScreenBLoCState>(
           builder: (context, state) => state.maybeMap(
-              onChat: (_) => const ChatScreen(),
+              onChat: (_) => ChatScreen(
+                    withUser: state.data?.users?.single,
+                  ),
               offChat: (state) =>
                   UsersListScreen(users: state.data?.users ?? []),
               processing: (_) => const AppLoadingWidget(),

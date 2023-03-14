@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 
@@ -23,7 +25,10 @@ class FirebaseChatIoService implements IIoService {
 
   /// Send message
   Future<dynamic> send(Map<String, dynamic> params) async {
-    final dataToSend = params;
+    final dataToSend = params["message"];
+
+    final groupChatId = FirebaseAuth.instance.currentUser?.uid;
+
     final documentReference = fbStore
         .collection(FirestoreConstans.pathMessageCollection)
         .doc(params['groupChatId'])
