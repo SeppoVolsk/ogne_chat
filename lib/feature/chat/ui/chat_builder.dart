@@ -4,24 +4,20 @@ import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
 import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
-import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen.dart';
 
-class InChatBuilder extends StatelessWidget {
-  const InChatBuilder({super.key, required this.withUser});
-  final UserEntity? withUser;
+class ChatBuilder extends StatelessWidget {
+  const ChatBuilder({super.key, required this.chatWithUser});
+  final UserEntity? chatWithUser;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChatScreenBLoC>(
       create: (context) => ChatScreenBLoC(
           repository:
-              FirebaseChatIoRepository(FirebaseChatIoService(), withUser)),
+              FirebaseChatIoRepository(FirebaseChatIoService(), chatWithUser)),
       child: BlocConsumer<ChatScreenBLoC, ChatScreenState>(
-          builder: (context, state) => state.maybeMap(
-              idle: (state) => const Text("Idle"),
-              successful: (state) => Container(
-                  color: Colors.amberAccent[100],
-                  child: Text("${state.data?.content}")),
-              orElse: () => const SizedBox.shrink()),
+          builder: (context, state) =>
+              state.maybeMap(orElse: () => ChatScreen(withUser: chatWithUser)),
           listener: (context, state) {}),
     );
   }

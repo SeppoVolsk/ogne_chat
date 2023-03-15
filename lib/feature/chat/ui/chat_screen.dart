@@ -6,11 +6,14 @@ import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
-import 'package:kind_owl/feature/chat/ui/in_chat_builder.dart';
+import 'package:kind_owl/feature/chat/ui/chat_builder.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_flow_widget.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_header_widget.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_input_widget.dart';
 import 'package:kind_owl/feature/main/ui/users_list_screen.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.withUser});
+  const ChatScreen({super.key, this.withUser});
   final UserEntity? withUser;
 
   @override
@@ -22,33 +25,17 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: UserCard(user: widget.withUser),
-      ),
       body: Column(
         children: [
-          InChatBuilder(withUser: widget.withUser),
+          ChatHeaderWidget(user: widget.withUser),
           const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                  child: AppTextField(
-                labelText: "Message",
-                controller: messageController,
-              )),
-              Expanded(
-                  flex: 0,
-                  child: IconButton(
-                    icon: const Icon(Icons.send_rounded),
-                    onPressed: () {
-                      BlocProvider.of<ChatScreenBLoC>(context).add(
-                          ChatScreenEvent.sendMessage(
-                              text: messageController.text));
-                      messageController.clear();
-                    },
-                  ))
-            ],
+          Expanded(
+            child: ChatFlowWidget(
+                newMessage: context.watch<ChatScreenBLoC>().state.mapOrNull(
+                      successful: (state) => state.data,
+                    )),
           ),
+          ChatInputWidget(messageController: messageController),
         ],
       ),
     );

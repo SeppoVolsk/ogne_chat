@@ -5,6 +5,7 @@ import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/common/ui/app_components/app_loading_widget.dart';
+import 'package:kind_owl/feature/chat/ui/chat_builder.dart';
 import 'package:kind_owl/feature/chat/ui/chat_screen.dart';
 import 'package:kind_owl/feature/main/data/firebase_io_service.dart';
 import 'package:kind_owl/feature/main/domain/entities/main_screen_data_entity.dart';
@@ -23,8 +24,8 @@ class MainScreenBuilder extends StatelessWidget {
             ..add(const MainScreenBLoCEvent.fetch()),
       child: BlocConsumer<MainScreenBLoC, MainScreenBLoCState>(
           builder: (context, state) => state.maybeMap(
-              onChat: (_) => ChatScreen(
-                    withUser: state.data?.users?.single,
+              onChat: (_) => ChatBuilder(
+                    chatWithUser: state.data?.users?.single,
                   ),
               offChat: (state) =>
                   UsersListScreen(users: state.data?.users ?? []),
