@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 
 class FirebaseChatIoService implements IIoService {
   final fbStore = FirebaseFirestore.instance;
 
-  @override
-
   /// Pull messages
+  @override
   Future<dynamic> fetch(Map<String, dynamic> params) async {
     final query = await fbStore
         .collection(FirestoreConstans.pathMessageCollection)
@@ -21,21 +22,18 @@ class FirebaseChatIoService implements IIoService {
     return query.docs;
   }
 
-  @override
-
   /// Send message
+  @override
   Future<dynamic> send(Map<String, dynamic> params) async {
     final dataToSend = params["message"];
-
-    final groupChatId = FirebaseAuth.instance.currentUser?.uid;
-
-    final documentReference = fbStore
+    final from = dataToSend['idFrom'];
+    final to = dataToSend['idTo'];
+    final timestamp = dataToSend['timestamp'];
+    final messageRef = fbStore
         .collection(FirestoreConstans.pathMessageCollection)
-        .doc(params['groupChatId'])
-        .collection('groupChatId')
-        .doc(DateTime.now().millisecondsSinceEpoch.toString());
-    fbStore.runTransaction((transaction) async {
-      transaction.set(documentReference, dataToSend);
-    });
+        .doc(from)
+        .collection(to)
+        .doc(timestamp);
+    await messageRef.set(dataToSend);
   }
 }

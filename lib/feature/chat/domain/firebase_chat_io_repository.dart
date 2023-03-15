@@ -11,7 +11,7 @@ import 'package:l/l.dart';
 class FirebaseChatIoRepository implements IIoRepository {
   final IIoService ioService;
   final currentUser = FirebaseAuth.instance.currentUser;
-  final UserEntity withUser;
+  final UserEntity? withUser;
 
   FirebaseChatIoRepository(this.ioService, this.withUser);
 
@@ -20,21 +20,20 @@ class FirebaseChatIoRepository implements IIoRepository {
 
   @override
   Future<MessageEntity> send(Map<String, dynamic> params) async {
-    late final dataToSend;
+    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final newMessage = MessageEntity(
+      idFrom: currentUser?.uid,
+      idTo: withUser?.uid,
+      timestamp: timestamp,
+      content: params['text'],
+    );
     try {
-      dataToSend = MessageEntity(
-              idFrom: currentUser?.uid,
-              idTo: params['idTo'],
-              timestamp: params['timestamp'],
-              content: params['content'],
-              type: params['type'])
-          .toJson();
-      ioService.send(dataToSend);
+      await ioService.send({"message": newMessage.toJson()});
     } catch (e) {
       l.e(e.toString());
       rethrow;
     }
-    return MessageEntity();
+    return newMessage;
   }
 }
 

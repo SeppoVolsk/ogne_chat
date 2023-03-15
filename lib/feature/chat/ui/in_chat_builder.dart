@@ -8,7 +8,7 @@ import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
 
 class InChatBuilder extends StatelessWidget {
   const InChatBuilder({super.key, required this.withUser});
-  final UserEntity withUser;
+  final UserEntity? withUser;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChatScreenBLoC>(
@@ -16,8 +16,12 @@ class InChatBuilder extends StatelessWidget {
           repository:
               FirebaseChatIoRepository(FirebaseChatIoService(), withUser)),
       child: BlocConsumer<ChatScreenBLoC, ChatScreenState>(
-          builder: (context, state) =>
-              state.maybeMap(orElse: () => const SizedBox.shrink()),
+          builder: (context, state) => state.maybeMap(
+              idle: (state) => const Text("Idle"),
+              successful: (state) => Container(
+                  color: Colors.amberAccent[100],
+                  child: Text("${state.data?.content}")),
+              orElse: () => const SizedBox.shrink()),
           listener: (context, state) {}),
     );
   }

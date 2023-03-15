@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
 import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
+import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
+import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
+import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
+import 'package:kind_owl/feature/chat/ui/in_chat_builder.dart';
 import 'package:kind_owl/feature/main/ui/users_list_screen.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -20,26 +25,31 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: UserCard(user: widget.withUser),
       ),
-      body: Align(
-        alignment: Alignment.bottomLeft,
-        child: Row(
-          children: [
-            Expanded(
-                child: AppTextField(
-              labelText: "Message",
-              controller: messageController,
-            )),
-            Expanded(
-                flex: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.send_rounded),
-                  onPressed: () {
-                    FirebaseChatIoService()
-                        .send({'message': messageController.text});
-                  },
-                ))
-          ],
-        ),
+      body: Column(
+        children: [
+          InChatBuilder(withUser: widget.withUser),
+          const Spacer(),
+          Row(
+            children: [
+              Expanded(
+                  child: AppTextField(
+                labelText: "Message",
+                controller: messageController,
+              )),
+              Expanded(
+                  flex: 0,
+                  child: IconButton(
+                    icon: const Icon(Icons.send_rounded),
+                    onPressed: () {
+                      BlocProvider.of<ChatScreenBLoC>(context).add(
+                          ChatScreenEvent.sendMessage(
+                              text: messageController.text));
+                      messageController.clear();
+                    },
+                  ))
+            ],
+          ),
+        ],
       ),
     );
   }
