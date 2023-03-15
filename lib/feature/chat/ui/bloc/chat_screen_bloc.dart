@@ -82,28 +82,25 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
         sendMessage: (event) => _sendMessage(event, emit),
         orElse: () async {},
       ),
-      transformer: bloc_concurrency.sequential(),
+      //transformer: bloc_concurrency.sequential(),
       //transformer: bloc_concurrency.restartable(),
-      //transformer: bloc_concurrency.droppable(),
+      transformer: bloc_concurrency.droppable(),
       //transformer: bloc_concurrency.concurrent(),
     );
   }
 
   final IIoRepository _repository;
 
-  /// Fetch event handler
+  /// Send message event handler
   Future<void> _sendMessage(
       SendMessageChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      emit(ChatScreenState.processing(data: state.data));
       final newData = await _repository.send({"text": event.text});
       emit(ChatScreenState.successful(data: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
       emit(ChatScreenState.error(data: state.data));
       rethrow;
-    } finally {
-      emit(ChatScreenState.idle(data: state.data));
     }
   }
 }

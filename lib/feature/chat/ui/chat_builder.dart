@@ -16,8 +16,7 @@ class ChatBuilder extends StatelessWidget {
           repository:
               FirebaseChatIoRepository(FirebaseChatIoService(), chatWithUser)),
       child: BlocConsumer<ChatScreenBLoC, ChatScreenState>(
-          builder: (context, state) =>
-              state.maybeMap(orElse: () => ChatScreen(withUser: chatWithUser)),
+          builder: (context, state) => ChatScreen(withUser: chatWithUser),
           listener: (context, state) {}),
     );
   }

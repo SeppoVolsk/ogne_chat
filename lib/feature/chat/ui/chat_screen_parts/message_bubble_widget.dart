@@ -2,14 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
-  const MessageBubbleWidget({super.key, this.message});
-  final MessageEntity? message;
+  const MessageBubbleWidget({super.key, required this.message});
+  final MessageEntity message;
+
   @override
   Widget build(BuildContext context) {
+    const radius = Radius.circular(20);
+    const offset = EdgeInsets.all(10);
+    const timeStyle = TextStyle(color: Colors.blueGrey);
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
-        child: Text(message?.content ?? ''),
+        padding: offset,
+        margin: offset,
+        decoration: BoxDecoration(
+            color: Colors.amberAccent[200],
+            borderRadius: const BorderRadius.only(
+              topLeft: radius,
+              bottomLeft: radius,
+            )),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Text(message.content ?? ''),
+          Text(
+            message.timestamp ?? '',
+            style: timeStyle,
+          ),
+        ]),
       ),
     );
   }

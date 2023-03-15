@@ -24,6 +24,7 @@ class ChatInputWidget extends StatelessWidget {
                 BlocProvider.of<ChatScreenBLoC>(context).add(
                     ChatScreenEvent.sendMessage(text: messageController.text));
                 messageController.clear();
+                FocusScope.of(context).requestFocus(FocusNode());
               },
             ))
       ],

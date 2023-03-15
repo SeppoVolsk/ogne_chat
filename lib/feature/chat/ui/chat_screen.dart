@@ -28,13 +28,11 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           ChatHeaderWidget(user: widget.withUser),
-          const Spacer(),
           Expanded(
-            child: ChatFlowWidget(
-                newMessage: context.watch<ChatScreenBLoC>().state.mapOrNull(
-                      successful: (state) => state.data,
-                    )),
-          ),
+              child: ChatFlowWidget(
+            newMessage:
+                context.watch<ChatScreenBLoC>().state.data ?? MessageEntity(),
+          )),
           ChatInputWidget(messageController: messageController),
         ],
       ),
