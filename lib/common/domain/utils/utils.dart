@@ -14,4 +14,13 @@ abstract class Utils {
     }
     return preloadResult;
   }
+
+  static DateTime toCurrentGmtDateTime(String unixTimestamp) {
+    const currentGMT = Duration(hours: 3);
+    final unixtime = int.tryParse(unixTimestamp);
+    final dateTime = unixtime != null
+        ? DateTime.fromMillisecondsSinceEpoch(unixtime)
+        : DateTime.now();
+    return dateTime.toUtc().add(currentGMT);
+  }
 }

@@ -11,16 +11,14 @@ class FirebaseChatIoService implements IIoService {
 
   /// Pull messages
   @override
-  Future<dynamic> fetch(Map<String, dynamic> params) async {
-    final query = await fbStore
-        .collection(FirestoreConstans.pathMessageCollection)
-        .doc(params['groupChatId'])
-        .collection(params['groupChatId'])
-        .orderBy(FirestoreConstans.timestamp, descending: true)
-        .limit(params['limit'])
-        .get();
-    return query.docs;
-  }
+  Future<dynamic> fetch(Map<String, dynamic> params) async => fbStore
+      .collection(FirestoreConstans.pathMessageCollection)
+      .doc(params['groupChatId'])
+      .collection(params['groupChatId'])
+      .orderBy(FirestoreConstans.timestamp, descending: true)
+      .limit(params['limit'])
+      .snapshots();
+  
 
   /// Send message
   @override

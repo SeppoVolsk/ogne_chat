@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kind_owl/common/domain/utils/utils.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
@@ -10,6 +11,10 @@ class MessageBubbleWidget extends StatelessWidget {
     const radius = Radius.circular(20);
     const offset = EdgeInsets.all(10);
     const timeStyle = TextStyle(color: Colors.blueGrey);
+    final timestamp = message.timestamp;
+    final currGmtDateTime =
+        timestamp != null ? Utils.toCurrentGmtDateTime(timestamp) : null;
+
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
@@ -23,10 +28,16 @@ class MessageBubbleWidget extends StatelessWidget {
             )),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Text(message.content ?? ''),
-          Text(
-            message.timestamp ?? '',
-            style: timeStyle,
-          ),
+          if (currGmtDateTime != null) ...[
+            Text(
+              '${currGmtDateTime.hour}:${currGmtDateTime.minute}',
+              style: timeStyle,
+            ),
+            Text(
+                '${currGmtDateTime.day}.${currGmtDateTime.month}.${currGmtDateTime.year}',
+                style: timeStyle),
+          ] else
+            const SizedBox.shrink(),
         ]),
       ),
     );

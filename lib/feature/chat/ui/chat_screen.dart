@@ -8,8 +8,8 @@ import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
 import 'package:kind_owl/feature/chat/ui/chat_builder.dart';
 import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_flow_widget.dart';
-import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_header_widget.dart';
-import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_input_widget.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_screen_app_bar.dart';
+import 'package:kind_owl/feature/chat/ui/chat_screen_parts/chat_screen_bottom_bar.dart';
 import 'package:kind_owl/feature/main/ui/users_list_screen.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -25,17 +25,19 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: ChatScreenAppBar(user: widget.withUser),
       body: Column(
         children: [
-          ChatHeaderWidget(user: widget.withUser),
           Expanded(
-              child: ChatFlowWidget(
-            newMessage:
-                context.watch<ChatScreenBLoC>().state.data ?? MessageEntity(),
-          )),
-          ChatInputWidget(messageController: messageController),
+            child: ChatFlowWidget(
+              newMessage:
+                  context.watch<ChatScreenBLoC>().state.data ?? MessageEntity(),
+            ),
+          ),
         ],
       ),
+      bottomNavigationBar:
+          ChatScreenBottomBar(messageController: messageController),
     );
   }
 }
