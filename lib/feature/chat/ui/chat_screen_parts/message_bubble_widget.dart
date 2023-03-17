@@ -3,8 +3,10 @@ import 'package:kind_owl/common/domain/utils/utils.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
-  const MessageBubbleWidget({super.key, required this.message});
+  const MessageBubbleWidget(
+      {super.key, required this.message, this.ours = true});
   final MessageEntity message;
+  final bool ours;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class MessageBubbleWidget extends StatelessWidget {
         timestamp != null ? Utils.toCurrentGmtDateTime(timestamp) : null;
 
     return Align(
-      alignment: Alignment.bottomRight,
+      alignment: ours ? Alignment.bottomRight : Alignment.bottomLeft,
       child: Container(
         padding: offset,
         margin: offset,

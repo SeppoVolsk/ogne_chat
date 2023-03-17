@@ -14,7 +14,8 @@ class ChatBuilder extends StatelessWidget {
     return BlocProvider<ChatScreenBLoC>(
       create: (context) => ChatScreenBLoC(
           repository:
-              FirebaseChatIoRepository(FirebaseChatIoService(), chatWithUser)),
+              FirebaseChatIoRepository(FirebaseChatIoService(), chatWithUser))
+        ..add(const ChatScreenEvent.update()),
       child: BlocConsumer<ChatScreenBLoC, ChatScreenState>(
           builder: (context, state) => ChatScreen(withUser: chatWithUser),
           listener: (context, state) {}),

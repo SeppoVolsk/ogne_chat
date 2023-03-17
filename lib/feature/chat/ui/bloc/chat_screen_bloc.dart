@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
+import 'package:kind_owl/feature/chat/domain/entities/chat_screen_entity.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:l/l.dart';
@@ -15,8 +16,8 @@ class ChatScreenEvent with _$ChatScreenEvent {
   const ChatScreenEvent._();
 
   /// Create
-  const factory ChatScreenEvent.sendMessage({required String? text}) =
-      SendMessageChatScreenEvent;
+  const factory ChatScreenEvent.send({required String? text}) =
+      SendChatScreenEvent;
 
   /// Update
   const factory ChatScreenEvent.update() = UpdateChatScreenEvent;
@@ -33,22 +34,22 @@ class ChatScreenState with _$ChatScreenState {
 
   /// Idling state
   const factory ChatScreenState.idle({
-    required final MessageEntity? data,
+    required final ChatScreenEntity? data,
   }) = IdleChatScreenState;
 
   /// Processing
   const factory ChatScreenState.processing({
-    required final MessageEntity? data,
+    required final ChatScreenEntity? data,
   }) = ProcessingChatScreenState;
 
   /// Successful
   const factory ChatScreenState.successful({
-    required final MessageEntity? data,
+    required final ChatScreenEntity? data,
   }) = SuccessfulChatScreenState;
 
   /// An error has occurred
   const factory ChatScreenState.error({
-    required final MessageEntity? data,
+    required final ChatScreenEntity? data,
   }) = ErrorChatScreenState;
 
   /// Has data
@@ -70,16 +71,17 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
     implements EventSink<ChatScreenEvent> {
   ChatScreenBLoC({
     required final IIoRepository repository,
-    final MessageEntity? message,
+    final ChatScreenEntity? chat,
   })  : _repository = repository,
         super(
           ChatScreenState.idle(
-            data: MessageEntity(),
+            data: ChatScreenEntity(),
           ),
         ) {
     on<ChatScreenEvent>(
       (event, emit) => event.maybeMap<Future<void>>(
-        sendMessage: (event) => _sendMessage(event, emit),
+        send: (event) => _sendMessage(event, emit),
+        update: (event) => _update(event, emit),
         orElse: () async {},
       ),
       //transformer: bloc_concurrency.sequential(),
@@ -93,9 +95,21 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
 
   /// Send message event handler
   Future<void> _sendMessage(
-      SendMessageChatScreenEvent event, Emitter<ChatScreenState> emit) async {
+      SendChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
       final newData = await _repository.send({"text": event.text});
+      emit(ChatScreenState.successful(data: newData));
+    } on Object catch (err, stackTrace) {
+      l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
+      emit(ChatScreenState.error(data: state.data));
+      rethrow;
+    }
+  }
+
+  Future<void> _update(
+      UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
+    try {
+      final newData = await _repository.fetch({});
       emit(ChatScreenState.successful(data: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);

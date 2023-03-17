@@ -5,6 +5,7 @@ import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
 import 'package:kind_owl/feature/chat/data/firebase_chat_io_service.dart';
+import 'package:kind_owl/feature/chat/domain/entities/chat_screen_entity.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 import 'package:l/l.dart';
 
@@ -16,24 +17,36 @@ class FirebaseChatIoRepository implements IIoRepository {
   FirebaseChatIoRepository(this.ioService, this.withUser);
 
   @override
-  fetch(Map<String, dynamic> params) {}
+  ChatScreenEntity fetch(Map<String, dynamic>? params) {
+    Stream<dynamic>? channel;
+    try {
+      channel = ioService.fetch({
+        'idFrom': currentUser?.uid,
+        'idTo': withUser?.uid,
+      });
+    } catch (e) {
+      l.e('FirebaseChatIoRepository error ${e.toString()}');
+      rethrow;
+    }
+    return ChatScreenEntity(channel: channel);
+  }
 
   @override
-  Future<MessageEntity> send(Map<String, dynamic> params) async {
+  Future<ChatScreenEntity> send(Map<String, dynamic>? params) async {
     final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     final newMessage = MessageEntity(
       idFrom: currentUser?.uid,
       idTo: withUser?.uid,
       timestamp: timestamp,
-      content: params['text'],
+      content: params?['text'],
     );
     try {
       await ioService.send({"message": newMessage.toJson()});
     } catch (e) {
-      l.e(e.toString());
+      l.e('FirebaseChatIoRepository error ${e.toString()}');
       rethrow;
     }
-    return newMessage;
+    return ChatScreenEntity(message: newMessage);
   }
 }
 
@@ -47,7 +60,7 @@ extension on DocumentSnapshot {
       content = get(FirestoreConstans.content);
       type = get(FirestoreConstans.type);
     } catch (e) {
-      l.e(e.toString());
+      l.e('FirebaseChatIoRepository error ${e.toString()}');
       rethrow;
     }
     return MessageEntity(

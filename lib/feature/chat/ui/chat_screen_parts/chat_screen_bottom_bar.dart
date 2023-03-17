@@ -22,9 +22,8 @@ class ChatScreenBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.send_rounded),
                 onPressed: () {
-                  BlocProvider.of<ChatScreenBLoC>(context).add(
-                      ChatScreenEvent.sendMessage(
-                          text: messageController.text));
+                  BlocProvider.of<ChatScreenBLoC>(context)
+                      .add(ChatScreenEvent.send(text: messageController.text));
                   messageController.clear();
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
