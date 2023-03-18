@@ -13,16 +13,19 @@ class FirebaseChatIoRepository implements IIoRepository {
   final IIoService ioService;
   final currentUser = FirebaseAuth.instance.currentUser;
   final UserEntity? withUser;
+  Stream<dynamic>? channel;
+
+  String get _groupId => '${currentUser?.uid}'.compareTo('${withUser?.uid}') > 0
+      ? '${currentUser?.uid}-${withUser?.uid}'
+      : '${withUser?.uid}-${currentUser?.uid}';
 
   FirebaseChatIoRepository(this.ioService, this.withUser);
 
   @override
-  ChatScreenEntity fetch(Map<String, dynamic>? params) {
-    Stream<dynamic>? channel;
+  ChatScreenEntity fetch({Map<String, dynamic>? params}) {
     try {
       channel = ioService.fetch({
-        'idFrom': currentUser?.uid,
-        'idTo': withUser?.uid,
+        'groupId': _groupId,
       });
     } catch (e) {
       l.e('FirebaseChatIoRepository error ${e.toString()}');
@@ -32,7 +35,7 @@ class FirebaseChatIoRepository implements IIoRepository {
   }
 
   @override
-  Future<ChatScreenEntity> send(Map<String, dynamic>? params) async {
+  Future<ChatScreenEntity> send({Map<String, dynamic>? params}) async {
     final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     final newMessage = MessageEntity(
       idFrom: currentUser?.uid,
@@ -41,33 +44,34 @@ class FirebaseChatIoRepository implements IIoRepository {
       content: params?['text'],
     );
     try {
-      await ioService.send({"message": newMessage.toJson()});
+      await ioService
+          .send({'message': newMessage.toJson(), 'groupId': _groupId});
     } catch (e) {
       l.e('FirebaseChatIoRepository error ${e.toString()}');
       rethrow;
     }
-    return ChatScreenEntity(message: newMessage);
+    return ChatScreenEntity(message: newMessage, channel: channel);
   }
 }
 
-extension on DocumentSnapshot {
-  MessageEntity toMessageEntity() {
-    late final idFrom, idTo, timestamp, content, type;
-    try {
-      idFrom = get(FirestoreConstans.idFrom);
-      idTo = get(FirestoreConstans.idTo);
-      timestamp = get(FirestoreConstans.timestamp);
-      content = get(FirestoreConstans.content);
-      type = get(FirestoreConstans.type);
-    } catch (e) {
-      l.e('FirebaseChatIoRepository error ${e.toString()}');
-      rethrow;
-    }
-    return MessageEntity(
-        idFrom: idFrom,
-        idTo: idTo,
-        timestamp: timestamp,
-        content: content,
-        type: type);
-  }
-}
+// extension on DocumentSnapshot {
+//   MessageEntity toMessageEntity() {
+//     late final idFrom, idTo, timestamp, content, type;
+//     try {
+//       idFrom = get(FirestoreConstans.idFrom);
+//       idTo = get(FirestoreConstans.idTo);
+//       timestamp = get(FirestoreConstans.timestamp);
+//       content = get(FirestoreConstans.content);
+//       type = get(FirestoreConstans.type);
+//     } catch (e) {
+//       l.e('FirebaseChatIoRepository error ${e.toString()}');
+//       rethrow;
+//     }
+//     return MessageEntity(
+//         idFrom: idFrom,
+//         idTo: idTo,
+//         timestamp: timestamp,
+//         content: content,
+//         type: type);
+//   }
+// }

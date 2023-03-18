@@ -109,7 +109,7 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
       FetchMainScreenBLoCEvent event, Emitter<MainScreenBLoCState> emit) async {
     try {
       emit(MainScreenBLoCState.processing(data: state.data));
-      final newData = await _repository.fetch({});
+      final newData = await _repository.fetch();
       emit(MainScreenBLoCState.offChat(data: newData));
     } on Object catch (err, stackTrace) {
       //l.e('An error occurred in the MainScreenBLoC: $err', stackTrace);

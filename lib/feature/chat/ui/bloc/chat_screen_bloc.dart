@@ -71,7 +71,6 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
     implements EventSink<ChatScreenEvent> {
   ChatScreenBLoC({
     required final IIoRepository repository,
-    final ChatScreenEntity? chat,
   })  : _repository = repository,
         super(
           ChatScreenState.idle(
@@ -92,12 +91,13 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
   }
 
   final IIoRepository _repository;
+  Stream<dynamic>? chatStream;
 
   /// Send message event handler
   Future<void> _sendMessage(
       SendChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      final newData = await _repository.send({"text": event.text});
+      final newData = await _repository.send(params: {"text": event.text});
       emit(ChatScreenState.successful(data: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
@@ -109,7 +109,8 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
   Future<void> _update(
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      final newData = await _repository.fetch({});
+      final ChatScreenEntity newData = await _repository.fetch();
+      chatStream = newData.channel;
       emit(ChatScreenState.successful(data: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);

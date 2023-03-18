@@ -29,22 +29,21 @@ class _ChatFlowWidgetState extends State<ChatFlowWidget> {
     if (content != null && content.trim().isNotEmpty) {
       messagesList.add(newMessage);
     }
+    final chatStream = context.read<ChatScreenBLoC>().chatStream;
 
-    return BlocBuilder<ChatScreenBLoC, ChatScreenState>(
-      builder: (context, state) => StreamBuilder(
-          stream: state.data?.channel,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              messagesList = ((snapshot.data.docs as List)
-                  .map((e) => MessageEntity.fromDocument(e))).toList();
-            }
-            return ListView.builder(
-                reverse: true,
-                itemCount: messagesList.length,
-                itemBuilder: (context, index) => MessageBubbleWidget(
-                      message: messagesList[index],
-                    ));
-          }),
-    );
+    return StreamBuilder(
+        stream: chatStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            messagesList = ((snapshot.data.docs as List)
+                .map((e) => MessageEntity.fromDocument(e))).toList();
+          }
+          return ListView.builder(
+              reverse: true,
+              itemCount: messagesList.length,
+              itemBuilder: (context, index) => MessageBubbleWidget(
+                    message: messagesList[index],
+                  ));
+        });
   }
 }

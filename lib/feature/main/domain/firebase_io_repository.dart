@@ -16,7 +16,7 @@ class FirebaseIoRepository implements IIoRepository {
   FirebaseIoRepository(this.ioService);
 
   @override
-  Future<MainScreenDataEntity> fetch(Map<String, dynamic>? params) async {
+  Future<MainScreenDataEntity> fetch({Map<String, dynamic>? params}) async {
     late final List<DocumentSnapshot> docs;
     try {
       docs = await ioService.fetch(params ?? {});
@@ -29,7 +29,7 @@ class FirebaseIoRepository implements IIoRepository {
   }
 
   @override
-  send(Map<String, dynamic>? params) {
+  send({Map<String, dynamic>? params}) {
     // TODO: implement send
   }
 }

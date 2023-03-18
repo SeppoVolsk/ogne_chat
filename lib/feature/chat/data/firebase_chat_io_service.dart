@@ -16,8 +16,8 @@ class FirebaseChatIoService implements IIoService {
           Map<String, dynamic> params) =>
       fbStore
           .collection(FirestoreConstans.pathMessageCollection)
-          .doc(params['idFrom'])
-          .collection(params['idTo'])
+          .doc(params['groupId'])
+          .collection(params['groupId'])
           .orderBy(FirestoreConstans.timestamp, descending: true)
           .limit(FirestoreConstans.limit)
           .snapshots();
@@ -25,17 +25,13 @@ class FirebaseChatIoService implements IIoService {
   /// Send message
   @override
   Future<dynamic> send(Map<String, dynamic> params) async {
-    final dataToSend = params["message"];
-    final from = dataToSend['idFrom'];
-    final to = dataToSend['idTo'];
-    final timestamp = dataToSend['timestamp'];
     try {
       final messageRef = fbStore
           .collection(FirestoreConstans.pathMessageCollection)
-          .doc(from)
-          .collection(to)
-          .doc(timestamp);
-      await messageRef.set(dataToSend);
+          .doc(params["groupId"])
+          .collection(params["groupId"])
+          .doc(params['message']['timestamp']);
+      await messageRef.set(params["message"]);
     } catch (e) {
       l.e('FirebaseChatIoService error ${e.toString()}');
       rethrow;
