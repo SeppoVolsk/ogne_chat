@@ -24,7 +24,7 @@ class FirebaseIoRepository implements IIoRepository {
       l.e(e.toString());
       rethrow;
     }
-    final usersIterable = docs.map((d) => d.toUserEntity());
+    final usersIterable = docs.map((d) => UserEntity.fromDocument(d));
     return MainScreenDataEntity(users: usersIterable.toList());
   }
 
@@ -34,16 +34,16 @@ class FirebaseIoRepository implements IIoRepository {
   }
 }
 
-extension on DocumentSnapshot {
-  UserEntity toUserEntity() {
-    late final fbName, fbPhoto;
-    try {
-      fbName = get(FirestoreConstans.nickName);
-      fbPhoto = get(FirestoreConstans.photoUrl);
-    } catch (e) {
-      l.e(e.toString());
-      rethrow;
-    }
-    return UserEntity(uid: id, name: fbName, photo: fbPhoto);
-  }
-}
+// extension on DocumentSnapshot {
+//   UserEntity toUserEntity() {
+//     late final fbName, fbPhoto;
+//     try {
+//       fbName = get(FirestoreConstans.nickName);
+//       fbPhoto = get(FirestoreConstans.photoUrl);
+//     } catch (e) {
+//       l.e(e.toString());
+//       rethrow;
+//     }
+//     return UserEntity(uid: id, name: fbName, photo: fbPhoto);
+//   }
+// }

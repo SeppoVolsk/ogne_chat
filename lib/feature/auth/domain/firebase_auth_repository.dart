@@ -13,17 +13,17 @@ class FirebaseAuthRepository implements IAuthRepository {
 
   FirebaseAuthRepository(this.authService);
 
-  late final User? userDTO;
+  late final User? userDto;
   @override
   Future<UserEntity> signIn(
       {required String email, required String password}) async {
     try {
-      userDTO = await authService.signIn(email: email, password: password);
+      userDto = await authService.signIn(email: email, password: password);
     } catch (e) {
       l.e('FirebaseAuthRepository error\n$e');
       rethrow;
     }
-    return userDTO?.toUserEntity() ?? UserEntity();
+    return UserEntity.fromUserDto(userDto);
   }
 
   @override
@@ -37,21 +37,21 @@ class FirebaseAuthRepository implements IAuthRepository {
       {required String email, required String password}) async {
     //late final User? userDTO;
     try {
-      userDTO = await authService.register(email: email, password: password);
+      userDto = await authService.register(email: email, password: password);
     } catch (e) {
       l.e('FirebaseAuthRepository error\n$e');
       rethrow;
     }
-    return userDTO?.toUserEntity() ?? UserEntity();
+    return UserEntity.fromUserDto(userDto);
   }
 }
 
-extension on User {
-  UserEntity toUserEntity() {
-    return UserEntity(
-      uid: uid,
-      name: displayName,
-      photo: photoURL,
-    );
-  }
-}
+// extension on User {
+//   UserEntity toUserEntity() {
+//     return UserEntity(
+//       uid: uid,
+//       name: displayName,
+//       photo: photoURL,
+//     );
+//   }
+// }

@@ -1,31 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
+import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
+import 'package:l/l.dart';
 
 class UsersListScreen extends StatefulWidget {
-  const UsersListScreen({super.key, required this.users});
-  final List<UserEntity?> users;
+  const UsersListScreen({super.key, required this.allUsers});
+  final List<UserEntity?> allUsers;
 
   @override
   State<UsersListScreen> createState() => _UsersListScreenState();
 }
 
 class _UsersListScreenState extends State<UsersListScreen> {
+  late final UserEntity? currentUser;
+  late List<UserEntity?> usersExcludeCurrent;
+
+  @override
+  void initState() {
+    currentUser = context.read<AuthBLoC>().state.user;
+    usersExcludeCurrent = List.of(widget.allUsers)
+      ..removeWhere((user) => user?.uid == currentUser?.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("USERS")),
+      appBar: AppBar(title: Text('${currentUser?.name}')),
       body: Center(
         child: ListView.builder(
           physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics()),
-          itemCount: widget.users.length,
+          itemCount: usersExcludeCurrent.length,
           itemBuilder: (context, index) {
             late final whatToShow;
 
-            if (widget.users.isNotEmpty) {
-              final indexedUser = widget.users[index];
+            if (usersExcludeCurrent.isNotEmpty) {
+              final indexedUser = usersExcludeCurrent[index];
               whatToShow = InkWell(
                 child: UserCard(user: indexedUser),
                 onTap: () => BlocProvider.of<MainScreenBLoC>(context)
@@ -52,7 +65,7 @@ class UserCard extends StatelessWidget {
       leading: CircleAvatar(
         child: Text("${user?.name?[0]}"),
       ),
-      title: Text("${user?.name}"),
+      title: Text("${user?.name} "),
       subtitle: Text("${user?.uid}"),
     );
   }

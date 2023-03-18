@@ -28,45 +28,10 @@ class MainScreenBuilder extends StatelessWidget {
                     chatWithUser: state.data?.users?.single,
                   ),
               offChat: (state) =>
-                  UsersListScreen(users: state.data?.users ?? []),
+                  UsersListScreen(allUsers: state.data?.users ?? []),
               processing: (_) => const AppLoadingWidget(),
               orElse: () => const Text('ERROR')),
           listener: (context, state) {}),
     );
-
-    // Scaffold(
-    //   body: Center(
-    //     child:
-    // FutureBuilder(
-    //     future: getIt.get<IIoRepository>().fetch({
-    //       'pathCollection': FirestoreConstans.pathUserCollection,
-    //       'limit': 20,
-    //     }),
-    //     builder: (context, snapshot) {
-    //       late final showWidgets;
-    //       if (snapshot.hasData) {
-    //         final data = snapshot.data as MainScreenDataEntity;
-    //         final users = data.users;
-    //         if (users != null) {
-    //           showWidgets = List.generate(
-    //               users.length,
-    //               (i) => Text("uid: ${users[i].uid ?? "NO DATA"}\n" +
-    //                   "name: ${users[i].name ?? "NO DATA"}\n" +
-    //                   "photo: ${users[i].photo ?? "NO DATA"}\n"));
-    //         }
-    //       } else if (snapshot.hasData) {
-    //         showWidgets = [Text(snapshot.error.toString())];
-    //       } else {
-    //         showWidgets = [AppLoadingWidget()];
-    //       }
-
-    //       return Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [...showWidgets],
-    //       );
-    //     }),
-    //     ),
-    //   ),
-    // );
   }
 }

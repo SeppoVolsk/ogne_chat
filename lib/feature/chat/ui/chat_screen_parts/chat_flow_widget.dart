@@ -20,7 +20,15 @@ class ChatFlowWidget extends StatefulWidget {
 }
 
 class _ChatFlowWidgetState extends State<ChatFlowWidget> {
+  late Stream<dynamic>? chatStream;
   List<MessageEntity> messagesList = [];
+
+  @override
+  void didChangeDependencies() {
+    chatStream = context.watch<ChatScreenBLoC>().chatStream;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final newMessage = widget.newMessage;
@@ -29,8 +37,6 @@ class _ChatFlowWidgetState extends State<ChatFlowWidget> {
     if (content != null && content.trim().isNotEmpty) {
       messagesList.add(newMessage);
     }
-    final chatStream = context.read<ChatScreenBLoC>().chatStream;
-
     return StreamBuilder(
         stream: chatStream,
         builder: (context, snapshot) {

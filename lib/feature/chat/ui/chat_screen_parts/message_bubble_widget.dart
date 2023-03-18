@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/utils/utils.dart';
+import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
+import 'package:l/l.dart';
 
-class MessageBubbleWidget extends StatelessWidget {
-  const MessageBubbleWidget(
-      {super.key, required this.message, this.ours = true});
+class MessageBubbleWidget extends StatefulWidget {
+  const MessageBubbleWidget({super.key, required this.message});
   final MessageEntity message;
-  final bool ours;
+
+  @override
+  State<MessageBubbleWidget> createState() => _MessageBubbleWidgetState();
+}
+
+class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
+  late final currentUserId;
+
+  @override
+  void initState() {
+    currentUserId = context.read<AuthBLoC>().state.user?.uid;
+    l.w(currentUserId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     const radius = Radius.circular(20);
     const offset = EdgeInsets.all(10);
     const timeStyle = TextStyle(color: Colors.blueGrey);
-    final timestamp = message.timestamp;
+    final timestamp = widget.message.timestamp;
     final currGmtDateTime =
         timestamp != null ? Utils.toCurrentGmtDateTime(timestamp) : null;
+    final bool ours = widget.message.idFrom == currentUserId;
 
     return Align(
       alignment: ours ? Alignment.bottomRight : Alignment.bottomLeft,
@@ -23,13 +39,18 @@ class MessageBubbleWidget extends StatelessWidget {
         padding: offset,
         margin: offset,
         decoration: BoxDecoration(
-            color: Colors.amberAccent[200],
-            borderRadius: const BorderRadius.only(
-              topLeft: radius,
-              bottomLeft: radius,
-            )),
+            color: ours ? Colors.green[100] : Colors.amberAccent[100],
+            borderRadius: ours
+                ? const BorderRadius.only(
+                    topLeft: radius,
+                    bottomLeft: radius,
+                  )
+                : const BorderRadius.only(
+                    topRight: radius,
+                    bottomRight: radius,
+                  )),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text(message.content ?? ''),
+          Text(widget.message.content ?? ''),
           if (currGmtDateTime != null) ...[
             Text(
               '${currGmtDateTime.hour}:${currGmtDateTime.minute}',
