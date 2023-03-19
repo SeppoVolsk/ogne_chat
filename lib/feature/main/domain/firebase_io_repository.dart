@@ -8,8 +8,8 @@ import 'package:kind_owl/feature/main/domain/entities/main_screen_data_entity.da
 
 import 'package:l/l.dart';
 
-@LazySingleton(as: IIoRepository)
-@prod
+// @LazySingleton(as: IIoRepository)
+// @prod
 class FirebaseIoRepository implements IIoRepository {
   final IIoService ioService;
 

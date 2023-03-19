@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:l/l.dart';
 
-@Singleton(as: IAuthRepository)
-@prod
+// @Singleton(as: IAuthRepository)
+// @prod
 class FirebaseAuthRepository implements IAuthRepository {
   final IAuthService authService;
 

@@ -74,7 +74,7 @@ class MainScreenBLoCEvent with _$MainScreenBLoCEvent {
 }
 
 /// Buisiness Logic Component MainScreenBLoC
-@injectable
+//@injectable
 class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
     implements EventSink<MainScreenBLoCEvent> {
   MainScreenBLoC({

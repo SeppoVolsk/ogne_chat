@@ -19,9 +19,7 @@ class MainScreenBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MainScreenBLoC>(
-      create: (context) =>
-          MainScreenBLoC(repository: getIt.get<IIoRepository>())
-            ..add(const MainScreenBLoCEvent.fetch()),
+      create: (context) => di.mainBloc..add(const MainScreenBLoCEvent.fetch()),
       child: BlocConsumer<MainScreenBLoC, MainScreenBLoCState>(
           builder: (context, state) => state.maybeMap(
               onChat: (_) => ChatBuilder(

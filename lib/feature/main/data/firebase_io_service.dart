@@ -5,8 +5,8 @@ import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:l/l.dart';
 
-@LazySingleton(as: IIoService)
-@prod
+// @LazySingleton(as: IIoService)
+// @prod
 class FirebaseIoService implements IIoService {
   final fbStore = FirebaseFirestore.instance;
 
