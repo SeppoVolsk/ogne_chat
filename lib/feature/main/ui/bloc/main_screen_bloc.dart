@@ -79,7 +79,8 @@ class MainScreenBLoC extends Bloc<MainScreenBLoCEvent, MainScreenBLoCState>
     implements EventSink<MainScreenBLoCEvent> {
   MainScreenBLoC({
     required final IIoRepository repository,
-    @factoryParam final MainScreenBLoCState? initialState,
+    //@factoryParam
+    final MainScreenBLoCState? initialState,
   })  : _repository = repository,
         super(
           initialState ??

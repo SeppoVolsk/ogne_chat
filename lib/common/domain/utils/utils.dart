@@ -1,4 +1,5 @@
 import 'package:kind_owl/common/data/i_auth_service.dart';
+import 'package:kind_owl/common/domain/di/init_di.config.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:l/l.dart';
 
@@ -7,7 +8,9 @@ abstract class Utils {
     late dynamic preloadResult;
     try {
       initDi(env);
-      preloadResult = getIt<IAuthService>().prepare();
+      preloadResult = await getIt<IAuthService>().prepare();
+      // di.initChatScope;
+      // di.initMainScope;
     } catch (e) {
       l.e('preloadAllAppValues: an error occured\n ${e.toString()}');
       rethrow;

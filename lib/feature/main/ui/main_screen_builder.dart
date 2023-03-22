@@ -18,6 +18,7 @@ class MainScreenBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    di.initMainScope;
     return BlocProvider<MainScreenBLoC>(
       create: (context) => di.mainBloc..add(const MainScreenBLoCEvent.fetch()),
       child: BlocConsumer<MainScreenBLoC, MainScreenBLoCState>(
