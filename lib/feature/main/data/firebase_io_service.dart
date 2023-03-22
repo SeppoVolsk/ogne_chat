@@ -5,8 +5,8 @@ import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:l/l.dart';
 
-@LazySingleton(as: IIoService)
-@prod
+// @LazySingleton(as: IIoService)
+// @prod
 class FirebaseIoService implements IIoService {
   final fbStore = FirebaseFirestore.instance;
 
@@ -15,8 +15,6 @@ class FirebaseIoService implements IIoService {
     late final response;
     if (params.containsKey('textSearch')) {
       response = await _fetchSearchingText(params);
-    } else if (params.containsKey('groupChatId')) {
-      response = await _fetchChatMessages(params);
     } else {
       response = await _fetchAllUsers(params);
     }
@@ -39,29 +37,8 @@ class FirebaseIoService implements IIoService {
           .limit(params['limit'] ?? FirestoreConstans.limit)
           .get();
 
-  Future<dynamic> _fetchChatMessages(Map<String, dynamic> params) async =>
-      await fbStore
-          .collection(FirestoreConstans.pathMessageCollection)
-          .doc(params['groupChatId'])
-          .collection(params['groupChatId'])
-          .orderBy(FirestoreConstans.timestamp, descending: true)
-          .limit(params['limit'])
-          .get();
-
   @override
   Future<void> send(Map<String, dynamic> params) async {}
-
-  Future<dynamic> _sendChatMessage(Map<String, dynamic> params) async {
-    final documentReference = fbStore
-        .collection(FirestoreConstans.pathMessageCollection)
-        .doc(params['groupChatId'])
-        .collection('groupChatId')
-        .doc(DateTime.now().millisecondsSinceEpoch.toString());
-    // TO DO: make messageChat object (MessageChat model)
-    fbStore.runTransaction((transaction) async {
-      //transaction.set(documentReference, messageChat.toJson());
-    });
-  }
 
   Future<dynamic> _updateRemoteData(Map<String, dynamic> params) async =>
       await fbStore

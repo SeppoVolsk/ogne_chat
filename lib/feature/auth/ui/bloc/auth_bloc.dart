@@ -77,7 +77,7 @@ class AuthBlocState with _$AuthBlocState {
 }
 
 /// Buisiness Logic Component AuthBLoC
-@Injectable()
+//@Injectable()
 class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
     implements EventSink<AuthBlocEvent> {
   AuthBLoC({

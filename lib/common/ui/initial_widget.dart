@@ -24,9 +24,9 @@ class InitialWidget extends StatelessWidget {
           } else {
             widgetToShow = const AppLoadingWidget();
           }
-          return MultiBlocProvider(providers: [
-            BlocProvider(create: (context) => getIt.get<AuthBLoC>())
-          ], child: MaterialApp(home: widgetToShow));
+          return MultiBlocProvider(
+              providers: [BlocProvider(create: (context) => di.authBloc)],
+              child: MaterialApp(home: widgetToShow));
         });
   }
 }

@@ -22,25 +22,27 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
   List stateList = [];
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBLoC, AuthBlocState>(
-        builder: (context, state) => state.maybeMap(
-            notAuthenticated: (_) => LoginScreen(),
-            authenticated: (_) => const MainScreenBuilder(),
-            processing: (_) => const AppLoadingWidget(),
-            unregistered: (_) => const AppLoadingWidget(),
-            orElse: () => _stayOnRegisteredScreen() == true
-                ? RegisterScreen()
-                : LoginScreen()),
-        listener: (context, state) {
-          stateList.add(state.runtimeType);
-          l.w(state.runtimeType);
-          state.whenOrNull(
-            error: (_, error, __) => AppSnackBar.showSnackBarWithError(
-              context,
-              ErrorEntity.fromException(error),
-            ),
-          );
-        });
+    return Scaffold(
+      body: BlocConsumer<AuthBLoC, AuthBlocState>(
+          builder: (context, state) => state.maybeMap(
+              notAuthenticated: (_) => LoginScreen(),
+              authenticated: (_) => const MainScreenBuilder(),
+              processing: (_) => const AppLoadingWidget(),
+              unregistered: (_) => const AppLoadingWidget(),
+              orElse: () => _stayOnRegisteredScreen() == true
+                  ? RegisterScreen()
+                  : LoginScreen()),
+          listener: (context, state) {
+            stateList.add(state.runtimeType);
+            l.w(state.runtimeType);
+            state.whenOrNull(
+              error: (_, error, __) => AppSnackBar.showSnackBarWithError(
+                context,
+                ErrorEntity.fromException(error),
+              ),
+            );
+          }),
+    );
   }
 
   bool _stayOnRegisteredScreen() {

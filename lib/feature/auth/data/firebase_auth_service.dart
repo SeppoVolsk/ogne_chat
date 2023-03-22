@@ -7,12 +7,13 @@ import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/firebase_options.dart';
 import 'package:l/l.dart';
 
-@Singleton(as: IAuthService)
-@prod
+// @Singleton(as: IAuthService)
+// @prod
 class FirebaseAuthService implements IAuthService {
   late final FirebaseAuth fbAuth;
   late final FirebaseFirestore fbStore;
   User? fbUser;
+  String? get _defaultUserName => fbUser?.email?.split('@')[0];
 
   @override
   Future prepare() async {
@@ -56,7 +57,7 @@ class FirebaseAuthService implements IAuthService {
             .collection(FirestoreConstans.pathUserCollection)
             .doc(fbUser?.uid)
             .set({
-          FirestoreConstans.nickName: fbUser?.displayName,
+          FirestoreConstans.nickName: fbUser?.displayName ?? _defaultUserName,
           FirestoreConstans.photoUrl: fbUser?.photoURL,
           FirestoreConstans.id: fbUser?.uid,
           'createAt': DateTime.now().millisecondsSinceEpoch.toString(),
