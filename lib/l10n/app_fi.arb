@@ -1,5 +1,9 @@
 {
   "firechat": "Tulipalochatti",
   "login": "Valtuutus",
-  "registration":"Rekisteröinti" 
+  "registration":"Rekisteröinti",
+  "profile": "Profiili",
+  "nickname": "Nimimerkki",
+  "status": "Tila",
+  "save": "Tallentaa" 
 }

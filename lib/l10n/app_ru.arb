@@ -1,5 +1,9 @@
 {
   "firechat": "Огнечат",
   "login": "Логин",
-  "registration":"Регистрация" 
+  "registration":"Регистрация",
+  "profile": "Профиль",
+  "nickname": "Никнейм",
+  "status": "Статус",
+  "save":"Tallentaa"
 }

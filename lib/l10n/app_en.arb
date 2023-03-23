@@ -4,5 +4,9 @@
   "@login": {
         "description": "Login button inscription"
   },
-  "registration":"Registration"
+  "registration": "Registration",
+  "profile": "Profile",
+  "nickname": "Nickname",
+  "status": "Status",
+  "save": "Save"
 }
