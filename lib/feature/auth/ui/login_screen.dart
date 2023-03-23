@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
+import 'package:kind_owl/common/ui/app_components/select_language_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/register_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -15,7 +17,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("LoginScreen")),
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)?.firechat ?? ''),
+          actions: const [SelectLocaleWidget()],
+        ),
         body: Form(
           key: formKey,
           child: Center(
@@ -45,14 +50,14 @@ class LoginScreen extends StatelessWidget {
                             password: controllerPassword.text));
                       }
                     },
-                    text: "LOGIN",
+                    text: AppLocalizations.of(context)?.login ?? '',
                   ),
                   AppTextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => RegisterScreen()));
                     },
-                    text: "Registration",
+                    text: AppLocalizations.of(context)?.registration ?? '',
                     backgroundColor: Colors.blueGrey,
                   )
                 ],
