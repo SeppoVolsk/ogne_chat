@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
+import 'package:kind_owl/common/ui/app_components/select_language_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/register_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,8 +17,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-            AppBar(title: Text(AppLocalizations.of(context)?.firechat ?? '')),
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)?.firechat ?? ''),
+          actions: const [SelectLocaleWidget()],
+        ),
         body: Form(
           key: formKey,
           child: Center(

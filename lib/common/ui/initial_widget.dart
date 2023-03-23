@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class InitialWidget extends StatelessWidget {
   const InitialWidget({super.key, required this.env});
   final String env;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,11 +28,7 @@ class InitialWidget extends StatelessWidget {
           }
           return MultiBlocProvider(
               providers: [BlocProvider(create: (context) => di.authBloc)],
-              child: MaterialApp(
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  home: widgetToShow));
+              child: widgetToShow);
         });
   }
 }

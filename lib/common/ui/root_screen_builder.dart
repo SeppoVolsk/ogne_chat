@@ -10,9 +10,12 @@ import 'package:kind_owl/feature/auth/ui/login_screen.dart';
 import 'package:kind_owl/feature/auth/ui/register_screen.dart';
 import 'package:kind_owl/feature/main/ui/main_screen_builder.dart';
 import 'package:l/l.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RootScreenBuilder extends StatefulWidget {
   const RootScreenBuilder({super.key});
+  static _RootScreenBuilderState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_RootScreenBuilderState>();
 
   @override
   State<RootScreenBuilder> createState() => _RootScreenBuilderState();
@@ -20,28 +23,37 @@ class RootScreenBuilder extends StatefulWidget {
 
 class _RootScreenBuilderState extends State<RootScreenBuilder> {
   List stateList = [];
+  Locale? _currentLocale;
+  void setUpLocale(Locale? newLocale) =>
+      setState(() => _currentLocale = newLocale);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<AuthBLoC, AuthBlocState>(
-          builder: (context, state) => state.maybeMap(
-              notAuthenticated: (_) => LoginScreen(),
-              authenticated: (_) => const MainScreenBuilder(),
-              processing: (_) => const AppLoadingWidget(),
-              unregistered: (_) => const AppLoadingWidget(),
-              orElse: () => _stayOnRegisteredScreen() == true
-                  ? RegisterScreen()
-                  : LoginScreen()),
-          listener: (context, state) {
-            stateList.add(state.runtimeType);
-            l.w(state.runtimeType);
-            state.whenOrNull(
-              error: (_, error, __) => AppSnackBar.showSnackBarWithError(
-                context,
-                ErrorEntity.fromException(error),
-              ),
-            );
-          }),
+    return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: _currentLocale,
+      home: Scaffold(
+        body: BlocConsumer<AuthBLoC, AuthBlocState>(
+            builder: (context, state) => state.maybeMap(
+                notAuthenticated: (_) => LoginScreen(),
+                authenticated: (_) => const MainScreenBuilder(),
+                processing: (_) => const AppLoadingWidget(),
+                unregistered: (_) => const AppLoadingWidget(),
+                orElse: () => _stayOnRegisteredScreen() == true
+                    ? RegisterScreen()
+                    : LoginScreen()),
+            listener: (context, state) {
+              stateList.add(state.runtimeType);
+              l.w(state.runtimeType);
+              state.whenOrNull(
+                error: (_, error, __) => AppSnackBar.showSnackBarWithError(
+                  context,
+                  ErrorEntity.fromException(error),
+                ),
+              );
+            }),
+      ),
     );
   }
 
