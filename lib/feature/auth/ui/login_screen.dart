@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => RegisterScreen()));
                     },
-                    text: AppLocalizations.of(context)?.login ?? '',
+                    text: AppLocalizations.of(context)?.registration ?? '',
                     backgroundColor: Colors.blueGrey,
                   )
                 ],
