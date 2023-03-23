@@ -1,0 +1,8 @@
+{
+  "firechat": "Firechat",
+  "login": "Login",
+  "@login": {
+        "description": "Login button inscription"
+  },
+  "registration":"Registration"
+}
