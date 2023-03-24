@@ -24,7 +24,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<Locale>(
-        value: _selectedLocale, //Localizations.localeOf(context),
+        value: _selectedLocale,
         items: List.generate(_langs.length, (index) {
           return DropdownMenuItem(
             value: _langs[index],
