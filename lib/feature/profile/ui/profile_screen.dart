@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
               //     .add(const MainScreenBLoCEvent.fetch())
               ),
           title: Text(AppLocalizations.of(context)?.profile ?? ''),
-          actions: const [SelectLocaleWidget()],
+          actions: const [SelectLanguageWidget()],
         ),
         body: Form(
           key: formKey,

@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)?.firechat ?? ''),
-          actions: const [SelectLocaleWidget()],
+          actions: const [SelectLanguageWidget()],
         ),
         body: Form(
           key: formKey,
