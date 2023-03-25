@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 void main() {
   testWidgets(
-      'When select new language in'
+      'When select new language in '
       'SelectLanguageWidget', (tester) async {
     Locale? currentAppLocale;
     late BuildContext pageContext;
@@ -49,13 +49,14 @@ void main() {
        тапаем последний, тот что в меню       
     */
 
-    final selectNewLocale = find.text('fi');
+    const pickLocale = 'fi';
+    final selectNewLocale = find.text(pickLocale);
     expect(selectNewLocale, findsWidgets);
 
     await tester.tap(selectNewLocale.last);
     await tester.pumpAndSettle();
 
-    // Проверяем, что отображаемое на кнопке значение соответствует новой локали
-    debugPrint(currentAppLocale.toLanguageTag());
+    // Проверяем, что отображаемое на кнопке значение соответствует выбранной локали
+    expect(find.text(pickLocale), findsOneWidget);
   });
 }
