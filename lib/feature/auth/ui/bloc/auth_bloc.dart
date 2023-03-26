@@ -77,16 +77,13 @@ class AuthBlocState with _$AuthBlocState {
 }
 
 /// Buisiness Logic Component AuthBLoC
-//@Injectable()
+
 class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
     implements EventSink<AuthBlocEvent> {
   AuthBLoC({
     required final IAuthRepository repository,
-    @factoryParam final UserEntity? user,
   })  : _repository = repository,
-        super(user == null
-            ? AuthBlocState.notAuthenticated(user: user)
-            : AuthBlocState.authenticated(user: user)) {
+        super(AuthBlocState.notAuthenticated(user: UserEntity())) {
     on<AuthBlocEvent>(
       (event, emit) => event.map<Future<void>>(
         logIn: (event) => _logIn(event, emit),

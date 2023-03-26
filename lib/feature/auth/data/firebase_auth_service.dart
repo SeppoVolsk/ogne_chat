@@ -7,8 +7,6 @@ import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/firebase_options.dart';
 import 'package:l/l.dart';
 
-// @Singleton(as: IAuthService)
-// @prod
 class FirebaseAuthService implements IAuthService {
   late final FirebaseAuth fbAuth;
   late final FirebaseFirestore fbStore;
