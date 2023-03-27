@@ -20,14 +20,7 @@ class ChatFlowWidget extends StatefulWidget {
 }
 
 class _ChatFlowWidgetState extends State<ChatFlowWidget> {
-  late Stream<dynamic>? chatStream;
   List<MessageEntity> messagesList = [];
-
-  @override
-  void didChangeDependencies() {
-    chatStream = context.watch<ChatScreenBLoC>().chatStream;
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +30,14 @@ class _ChatFlowWidgetState extends State<ChatFlowWidget> {
     if (content != null && content.trim().isNotEmpty) {
       messagesList.add(newMessage);
     }
-    return StreamBuilder(
-        stream: chatStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            messagesList = ((snapshot.data.docs as List)
-                .map((e) => MessageEntity.fromDocument(e))).toList();
-          }
-          return ListView.builder(
-              reverse: true,
-              itemCount: messagesList.length,
-              itemBuilder: (context, index) => MessageBubbleWidget(
-                    message: messagesList[index],
-                  ));
-        });
+
+    return BlocBuilder<ChatScreenBLoC, ChatScreenState>(
+      builder: (context, state) => ListView.builder(
+          reverse: true,
+          itemCount: state.data?.chatMessages?.length,
+          itemBuilder: (context, index) => MessageBubbleWidget(
+              message: state.data?.chatMessages?[index] ??
+                  MessageEntity(content: "ЗАГЛУШКА"))),
+    );
   }
 }

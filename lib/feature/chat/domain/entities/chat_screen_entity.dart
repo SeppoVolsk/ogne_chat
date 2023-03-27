@@ -5,7 +5,7 @@ part 'chat_screen_entity.freezed.dart';
 @freezed
 class ChatScreenEntity with _$ChatScreenEntity {
   factory ChatScreenEntity({
-    MessageEntity? message,
-    Stream<dynamic>? channel,
+    MessageEntity? messageToSend,
+    List<MessageEntity>? chatMessages,
   }) = _ChatScreenEntity;
 }

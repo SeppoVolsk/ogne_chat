@@ -110,7 +110,7 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
       final ChatScreenEntity newData = await _repository.fetch();
-      chatStream = newData.channel;
+      //chatStream = newData.channel;
       emit(ChatScreenState.successful(data: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);

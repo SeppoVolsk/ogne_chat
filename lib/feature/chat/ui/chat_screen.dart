@@ -29,10 +29,9 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ChatFlowWidget(
-              newMessage: context.watch<ChatScreenBLoC>().state.data?.message ??
-                  MessageEntity(),
-            ),
+            child: ChatFlowWidget(newMessage: MessageEntity()
+                //context.watch<ChatScreenBLoC>().state.data?.message ?? MessageEntity(),
+                ),
           ),
         ],
       ),
