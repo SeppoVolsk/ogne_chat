@@ -32,12 +32,13 @@ class _ChatFlowWidgetState extends State<ChatFlowWidget> {
     }
 
     return BlocBuilder<ChatScreenBLoC, ChatScreenState>(
-      builder: (context, state) => ListView.builder(
+        builder: (context, state) {
+      return ListView.builder(
           reverse: true,
           itemCount: state.data?.chatMessages?.length,
           itemBuilder: (context, index) => MessageBubbleWidget(
               message: state.data?.chatMessages?[index] ??
-                  MessageEntity(content: "ЗАГЛУШКА"))),
-    );
+                  MessageEntity(content: "ЗАГЛУШКА")));
+    });
   }
 }

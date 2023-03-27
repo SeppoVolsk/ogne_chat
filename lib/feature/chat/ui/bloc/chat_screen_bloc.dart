@@ -91,7 +91,6 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
   }
 
   final IIoRepository _repository;
-  Stream<dynamic>? chatStream;
 
   /// Send message event handler
   Future<void> _sendMessage(
@@ -109,9 +108,12 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
   Future<void> _update(
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      final ChatScreenEntity newData = await _repository.fetch();
-      //chatStream = newData.channel;
-      emit(ChatScreenState.successful(data: newData));
+      final Stream<List<MessageEntity>> messagesStream = _repository.fetch();
+      await emit.forEach(
+        messagesStream,
+        onData: (List<MessageEntity> data) => ChatScreenState.successful(
+            data: ChatScreenEntity(chatMessages: data)),
+      );
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
       emit(ChatScreenState.error(data: state.data));

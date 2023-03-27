@@ -34,6 +34,7 @@ class FirebaseChatIoService implements IIoService {
           .collection(params["groupId"])
           .doc(params['message']['timestamp']);
       await messageRef.set(params["message"]);
+      l.i("SENDING ${params['message']}");
     } catch (e) {
       l.e('FirebaseChatIoService error ${e.toString()}');
       rethrow;
