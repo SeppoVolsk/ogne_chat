@@ -10,12 +10,14 @@ import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
 import 'package:l/l.dart';
 import 'dart:async';
 
-List<MessageEntity> messageList = [];
+// List<MessageEntity> messageList = [];
 
 class FirebaseChatIoRepository implements IIoRepository {
   final IIoService ioService;
   final currentUser = FirebaseAuth.instance.currentUser;
   final UserEntity? withUser;
+
+  var messagesController = StreamController<List<MessageEntity>>();
 
   String get _groupId => '${currentUser?.uid}'.compareTo('${withUser?.uid}') > 0
       ? '${currentUser?.uid}-${withUser?.uid}'
@@ -25,29 +27,24 @@ class FirebaseChatIoRepository implements IIoRepository {
 
   @override
   Stream<List<MessageEntity>> fetch({Map<String, dynamic>? params}) {
+    Stream<QuerySnapshot<Map<String, dynamic>>> fbOriginStream =
+        ioService.fetch({'groupId': _groupId});
     final toStreamMessagesTransformer = StreamTransformer<
         QuerySnapshot<Map<String, dynamic>>, List<MessageEntity>>.fromHandlers(
       handleData: (QuerySnapshot snap, EventSink<List<MessageEntity>> sink) {
         var messasgeList =
             snap.docs.map((e) => MessageEntity.fromDocument(e)).toList();
+        l.e("TRANSFORMER DONE ${messasgeList.length}}");
         sink.add(messasgeList);
       },
     );
-    Stream<List<MessageEntity>> messagesStream;
-    try {
-      final Stream<QuerySnapshot<Map<String, dynamic>>> fbStream =
-          ioService.fetch({'groupId': _groupId});
-      messagesStream = fbStream.transform(toStreamMessagesTransformer);
-    } catch (e) {
-      l.e('FirebaseChatIoRepository error ${e.toString()}');
-      rethrow;
-    }
-
+    final Stream<List<MessageEntity>> messagesStream =
+        fbOriginStream.transform(toStreamMessagesTransformer);
     return messagesStream;
   }
 
   @override
-  Future<ChatScreenEntity> send({Map<String, dynamic>? params}) async {
+  Future<void> send({Map<String, dynamic>? params}) async {
     final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     final newMessage = MessageEntity(
       idFrom: currentUser?.uid,
@@ -62,7 +59,6 @@ class FirebaseChatIoRepository implements IIoRepository {
       l.e('FirebaseChatIoRepository error ${e.toString()}');
       rethrow;
     }
-    return ChatScreenEntity(messageToSend: newMessage);
   }
 }
 

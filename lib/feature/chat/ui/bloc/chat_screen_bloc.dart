@@ -23,7 +23,8 @@ class ChatScreenEvent with _$ChatScreenEvent {
   const factory ChatScreenEvent.update() = UpdateChatScreenEvent;
 
   /// Delete
-  const factory ChatScreenEvent.delete() = DeleteChatScreenEvent;
+  const factory ChatScreenEvent.receive(
+      {required List<MessageEntity> messages}) = ReceiveChatScreenEvent;
 }
 
 /* ChatScreenBLoC States */
@@ -78,26 +79,28 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
           ),
         ) {
     on<ChatScreenEvent>(
-      (event, emit) => event.maybeMap<Future<void>>(
+      (event, emit) async => await event.maybeMap<Future<void>>(
         send: (event) => _sendMessage(event, emit),
         update: (event) => _update(event, emit),
+        receive: (event) => _receive(event, emit),
         orElse: () async {},
       ),
       //transformer: bloc_concurrency.sequential(),
-      //transformer: bloc_concurrency.restartable(),
-      transformer: bloc_concurrency.droppable(),
+      transformer: bloc_concurrency.restartable(),
+      //transformer: bloc_concurrency.droppable(),
       //transformer: bloc_concurrency.concurrent(),
     );
   }
 
   final IIoRepository _repository;
+  Stream<List<MessageEntity>>? messageStream;
+  StreamSubscription<List<MessageEntity>>? messagesSubscription;
 
   /// Send message event handler
   Future<void> _sendMessage(
       SendChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      final newData = await _repository.send(params: {"text": event.text});
-      emit(ChatScreenState.successful(data: newData));
+      await _repository.send(params: {"text": event.text});
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
       emit(ChatScreenState.error(data: state.data));
@@ -108,16 +111,28 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
   Future<void> _update(
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
-      final Stream<List<MessageEntity>> messagesStream = _repository.fetch();
-      await emit.forEach(
-        messagesStream,
-        onData: (List<MessageEntity> data) => ChatScreenState.successful(
-            data: ChatScreenEntity(chatMessages: data)),
-      );
+      messageStream ??= _repository.fetch();
+      messagesSubscription = messageStream?.listen((messages) {
+        l.w("BLOC UPDATE ${messages.length}");
+        add(ReceiveChatScreenEvent(messages: messages));
+      });
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
       emit(ChatScreenState.error(data: state.data));
       rethrow;
     }
+  }
+
+  Future<void> _receive(
+      ReceiveChatScreenEvent event, Emitter<ChatScreenState> emit) async {
+    l.d("RECEIVED ${event.messages.length}");
+    emit(ChatScreenState.successful(
+        data: ChatScreenEntity(chatMessages: event.messages)));
+  }
+
+  @override
+  Future<void> close() {
+    messagesSubscription?.cancel();
+    return super.close();
   }
 }
