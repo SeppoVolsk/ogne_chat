@@ -19,7 +19,6 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
   @override
   void initState() {
     currentUserId = context.read<AuthBLoC>().state.user?.uid;
-    l.w(currentUserId);
     super.initState();
   }
 

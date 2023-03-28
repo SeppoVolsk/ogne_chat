@@ -18,7 +18,7 @@ class FirebaseIoService implements IIoService {
     } else {
       response = await _fetchAllUsers(params);
     }
-    l.s('io service ${response.docs}');
+
     return response.docs;
   }
 
