@@ -30,6 +30,7 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

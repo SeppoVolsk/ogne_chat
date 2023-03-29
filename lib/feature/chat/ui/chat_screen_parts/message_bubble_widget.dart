@@ -38,7 +38,8 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
         padding: offset,
         margin: offset,
         decoration: BoxDecoration(
-            color: ours ? Colors.green[100] : Colors.amberAccent[100],
+            // color: ours ? Colors.green[100] : Colors.amberAccent[100],
+            border: Border.all(),
             borderRadius: ours
                 ? const BorderRadius.only(
                     topLeft: radius,

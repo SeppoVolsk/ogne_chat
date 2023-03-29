@@ -23,17 +23,19 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<Locale>(
-        value: _selectedLocale,
-        items: List.generate(_langs.length, (index) {
-          return DropdownMenuItem(
-            value: _langs[index],
-            child: Text(_langs[index].toLanguageTag()),
-          );
-        }),
-        onChanged: (selected) {
-          setState(() => _selectedLocale = selected);
-          RootScreenBuilder.of(context)?.setUpLocale(selected);
-        });
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<Locale>(
+          value: _selectedLocale,
+          items: List.generate(_langs.length, (index) {
+            return DropdownMenuItem(
+              value: _langs[index],
+              child: Text(_langs[index].toLanguageTag()),
+            );
+          }),
+          onChanged: (selected) {
+            setState(() => _selectedLocale = selected);
+            RootScreenBuilder.of(context)?.setUpLocale(selected);
+          }),
+    );
   }
 }
