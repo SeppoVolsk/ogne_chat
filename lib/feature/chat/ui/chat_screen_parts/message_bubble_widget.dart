@@ -43,10 +43,12 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
             borderRadius: ours
                 ? const BorderRadius.only(
                     topLeft: radius,
+                    topRight: radius,
                     bottomLeft: radius,
                   )
                 : const BorderRadius.only(
                     topRight: radius,
+                    topLeft: radius,
                     bottomRight: radius,
                   )),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -60,7 +62,7 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                 '${currGmtDateTime.day}.${currGmtDateTime.month}.${currGmtDateTime.year}',
                 style: timeStyle),
           ] else
-            const SizedBox.shrink(),
+            const SizedBox.shrink()
         ]),
       ),
     );

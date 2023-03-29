@@ -47,7 +47,6 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
                     : LoginScreen()),
             listener: (context, state) {
               stateList.add(state.runtimeType);
-              l.w(state.runtimeType);
               state.whenOrNull(
                 error: (_, error, __) => AppSnackBar.showSnackBarWithError(
                   context,

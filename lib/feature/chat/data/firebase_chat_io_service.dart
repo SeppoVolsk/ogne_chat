@@ -25,7 +25,8 @@ class FirebaseChatIoService implements IIoService {
         .limit(FirestoreConstans.limit)
         .snapshots();
 
-    return originStream;
+    return Stream.error("Firebase error");
+//    originStream;
   }
 
   /// Send message

@@ -17,7 +17,7 @@ class FirebaseChatIoRepository implements IIoRepository {
   final currentUser = FirebaseAuth.instance.currentUser;
   final UserEntity? withUser;
 
-  var messagesController = StreamController<List<MessageEntity>>();
+  //var messagesController = StreamController<List<MessageEntity>>();
 
   String get _groupId => '${currentUser?.uid}'.compareTo('${withUser?.uid}') > 0
       ? '${currentUser?.uid}-${withUser?.uid}'
@@ -27,19 +27,27 @@ class FirebaseChatIoRepository implements IIoRepository {
 
   @override
   Stream<List<MessageEntity>> fetch({Map<String, dynamic>? params}) {
-    Stream<QuerySnapshot<Map<String, dynamic>>> fbOriginStream =
-        ioService.fetch({'groupId': _groupId});
-    final toStreamMessagesTransformer = StreamTransformer<
+    final Stream<List<MessageEntity>> messagesStream;
+    final toStreamMessages = StreamTransformer<
         QuerySnapshot<Map<String, dynamic>>, List<MessageEntity>>.fromHandlers(
       handleData: (QuerySnapshot snap, EventSink<List<MessageEntity>> sink) {
-        var messasgeList =
+        List<MessageEntity> messasgeList =
             snap.docs.map((e) => MessageEntity.fromDocument(e)).toList();
         l.e("TRANSFORMER DONE ${messasgeList.length}}");
         sink.add(messasgeList);
       },
+      handleError: (error, stackTrace, sink) {
+        throw error;
+      },
     );
-    final Stream<List<MessageEntity>> messagesStream =
-        fbOriginStream.transform(toStreamMessagesTransformer);
+    try {
+      Stream<QuerySnapshot<Map<String, dynamic>>> fbOriginStream =
+          ioService.fetch({'groupId': _groupId});
+      messagesStream = fbOriginStream.transform(toStreamMessages);
+    } catch (e) {
+      l.e('FirebaseChatIoRepository error ${e.toString()}');
+      rethrow;
+    }
     return messagesStream;
   }
 
