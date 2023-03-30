@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
 import 'package:kind_owl/common/ui/app_components/select_language_widget.dart';
-import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
-import 'package:kind_owl/feature/auth/ui/register_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);

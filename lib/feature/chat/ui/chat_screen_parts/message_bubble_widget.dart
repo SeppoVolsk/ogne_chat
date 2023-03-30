@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/utils/utils.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
-import 'package:l/l.dart';
 
 class MessageBubbleWidget extends StatefulWidget {
   const MessageBubbleWidget({super.key, required this.message});
@@ -14,7 +13,7 @@ class MessageBubbleWidget extends StatefulWidget {
 }
 
 class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
-  late final currentUserId;
+  late final String? currentUserId;
 
   @override
   void initState() {
@@ -38,7 +37,6 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
         padding: offset,
         margin: offset,
         decoration: BoxDecoration(
-            // color: ours ? Colors.green[100] : Colors.amberAccent[100],
             border: Border.all(),
             borderRadius: ours
                 ? const BorderRadius.only(

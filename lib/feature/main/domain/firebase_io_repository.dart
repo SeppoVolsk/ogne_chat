@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:injectable/injectable.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
-import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/feature/main/domain/entities/main_screen_data_entity.dart';
 
 import 'package:l/l.dart';

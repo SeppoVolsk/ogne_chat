@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
 import 'package:kind_owl/feature/chat/domain/entities/chat_screen_entity.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
-import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:l/l.dart';
 part 'chat_screen_bloc.freezed.dart';
 
@@ -116,7 +115,7 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
       messageStream ??= _repository.fetch();
-      messagesSubscription = messageStream?.listen(
+      messagesSubscription ??= messageStream?.listen(
         (messages) {
           l.w("BLOC UPDATE ${messages.length}");
           add(ReceiveChatScreenEvent(messages: messages));

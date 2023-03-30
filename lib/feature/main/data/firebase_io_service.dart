@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:injectable/injectable.dart';
-import 'package:kind_owl/common/data/i_auth_service.dart';
 import 'package:kind_owl/common/data/i_io_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
-import 'package:l/l.dart';
 
 // @LazySingleton(as: IIoService)
 // @prod
@@ -40,7 +37,7 @@ class FirebaseIoService implements IIoService {
   @override
   Future<void> send(Map<String, dynamic> params) async {}
 
-  Future<dynamic> _updateRemoteData(Map<String, dynamic> params) async =>
+  Future<void> _updateRemoteData(Map<String, dynamic> params) async =>
       await fbStore
           .collection(params['pathCollection'])
           .doc(params['path'])
