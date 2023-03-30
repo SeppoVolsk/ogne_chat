@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:injectable/injectable.dart';
 import 'package:kind_owl/common/data/i_auth_service.dart';
 import 'package:kind_owl/common/domain/constans/firestore__constans.dart';
 import 'package:kind_owl/firebase_options.dart';

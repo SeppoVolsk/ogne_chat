@@ -15,7 +15,6 @@ import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
 import 'package:kind_owl/feature/main/data/firebase_io_service.dart';
 import 'package:kind_owl/feature/main/domain/firebase_io_repository.dart';
 import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
-import 'package:l/l.dart';
 
 final getIt = GetIt.instance;
 

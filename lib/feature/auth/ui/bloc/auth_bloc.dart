@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
 import 'package:kind_owl/common/domain/repo/i_auth_repository.dart';
 
@@ -123,7 +122,7 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
       LogOutAuthBlocEvent event, Emitter<AuthBlocState> emit) async {
     try {
       //  emit(AuthBlocState.processing(user: state.user));
-      final newData = await _repository.signOut();
+      await _repository.signOut();
       //  emit(AuthBlocState.authenticated(user: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the AuthBLoC: $err', stackTrace);

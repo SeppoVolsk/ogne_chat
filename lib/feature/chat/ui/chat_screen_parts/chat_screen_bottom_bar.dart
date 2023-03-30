@@ -4,8 +4,9 @@ import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
 import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
 
 class ChatScreenBottomBar extends StatelessWidget {
-  const ChatScreenBottomBar({super.key, required this.messageController});
-  final TextEditingController messageController;
+  final messageController = TextEditingController();
+
+  ChatScreenBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,12 @@ class ChatScreenBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.send_rounded),
                 onPressed: () {
-                  BlocProvider.of<ChatScreenBLoC>(context)
-                      .add(ChatScreenEvent.send(text: messageController.text));
-                  messageController.clear();
-                  FocusScope.of(context).requestFocus(FocusNode());
+                  if (messageController.text.trim().isNotEmpty) {
+                    BlocProvider.of<ChatScreenBLoC>(context).add(
+                        ChatScreenEvent.send(text: messageController.text));
+                    messageController.clear();
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  }
                 },
               ))
         ],

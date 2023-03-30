@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kind_owl/common/domain/repo/i_io_repository.dart';
 import 'package:kind_owl/feature/chat/domain/entities/chat_screen_entity.dart';
 import 'package:kind_owl/feature/chat/domain/entities/message_entity.dart';
-import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart';
 import 'package:l/l.dart';
 part 'chat_screen_bloc.freezed.dart';
 
@@ -15,16 +14,20 @@ part 'chat_screen_bloc.freezed.dart';
 class ChatScreenEvent with _$ChatScreenEvent {
   const ChatScreenEvent._();
 
-  /// Create
+  /// Send message
   const factory ChatScreenEvent.send({required String? text}) =
       SendChatScreenEvent;
 
-  /// Update
+  /// Listen messages stream
   const factory ChatScreenEvent.update() = UpdateChatScreenEvent;
 
-  /// Delete
+  /// Emit messages
   const factory ChatScreenEvent.receive(
       {required List<MessageEntity> messages}) = ReceiveChatScreenEvent;
+
+  /// Emit error state
+  const factory ChatScreenEvent.error({required Object error}) =
+      ErrorChatScreenEvent;
 }
 
 /* ChatScreenBLoC States */
@@ -49,9 +52,9 @@ class ChatScreenState with _$ChatScreenState {
   }) = SuccessfulChatScreenState;
 
   /// An error has occurred
-  const factory ChatScreenState.error({
-    required final ChatScreenEntity? data,
-  }) = ErrorChatScreenState;
+  const factory ChatScreenState.error(
+      {required final ChatScreenEntity? data,
+      required final Object error}) = ErrorChatScreenState;
 
   /// Has data
   bool get hasData => data != null;
@@ -79,11 +82,11 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
           ),
         ) {
     on<ChatScreenEvent>(
-      (event, emit) async => await event.maybeMap<Future<void>>(
+      (event, emit) async => await event.map<Future<void>>(
         send: (event) => _sendMessage(event, emit),
         update: (event) => _update(event, emit),
         receive: (event) => _receive(event, emit),
-        orElse: () async {},
+        error: (event) => _error(event, emit),
       ),
       //transformer: bloc_concurrency.sequential(),
       transformer: bloc_concurrency.restartable(),
@@ -101,9 +104,9 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
       SendChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
       await _repository.send(params: {"text": event.text});
-    } on Object catch (err, stackTrace) {
-      l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
-      emit(ChatScreenState.error(data: state.data));
+    } on Object catch (error, stackTrace) {
+      l.e('An error occurred in the ChatScreenBLoC: $error', stackTrace);
+      emit(ChatScreenState.error(data: state.data, error: error));
       rethrow;
     }
   }
@@ -112,13 +115,19 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
       UpdateChatScreenEvent event, Emitter<ChatScreenState> emit) async {
     try {
       messageStream ??= _repository.fetch();
-      messagesSubscription = messageStream?.listen((messages) {
-        l.w("BLOC UPDATE ${messages.length}");
-        add(ReceiveChatScreenEvent(messages: messages));
-      });
-    } on Object catch (err, stackTrace) {
-      l.e('An error occurred in the ChatScreenBLoC: $err', stackTrace);
-      emit(ChatScreenState.error(data: state.data));
+      messagesSubscription ??= messageStream?.listen(
+        (messages) {
+          l.w("BLOC UPDATE ${messages.length}");
+          add(ReceiveChatScreenEvent(messages: messages));
+        },
+        onError: (error) {
+          l.e("LISTEN ERROR $error");
+          add(ErrorChatScreenEvent(error: error));
+        },
+        cancelOnError: false,
+      );
+    } on Object catch (error) {
+      add(ErrorChatScreenEvent(error: error));
       rethrow;
     }
   }
@@ -128,6 +137,12 @@ class ChatScreenBLoC extends Bloc<ChatScreenEvent, ChatScreenState>
     l.d("RECEIVED ${event.messages.length}");
     emit(ChatScreenState.successful(
         data: ChatScreenEntity(chatMessages: event.messages)));
+  }
+
+  Future<void> _error(
+      ErrorChatScreenEvent event, Emitter<ChatScreenState> emit) async {
+    l.e('An error occurred in the ChatScreenBLoC: ${event.error}');
+    emit(ChatScreenState.error(data: state.data, error: event.error));
   }
 
   @override

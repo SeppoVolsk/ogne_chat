@@ -1,7 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/common/domain/error/error_entity.dart';
 import 'package:kind_owl/common/ui/app_components/app_loading_widget.dart';
 import 'package:kind_owl/common/ui/app_components/app_snack_bar.dart';
@@ -47,7 +45,6 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
                     : LoginScreen()),
             listener: (context, state) {
               stateList.add(state.runtimeType);
-              l.w(state.runtimeType);
               state.whenOrNull(
                 error: (_, error, __) => AppSnackBar.showSnackBarWithError(
                   context,

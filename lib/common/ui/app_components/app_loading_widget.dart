@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppLoadingWidget extends StatelessWidget {
@@ -6,10 +5,6 @@ class AppLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: CupertinoActivityIndicator(
-      radius: 50,
-      color: Colors.red.shade400,
-    ));
+    return const Center(child: CircularProgressIndicator(strokeWidth: 12));
   }
 }

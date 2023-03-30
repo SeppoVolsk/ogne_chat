@@ -1,5 +1,4 @@
 import 'package:kind_owl/common/data/i_auth_service.dart';
-import 'package:kind_owl/common/domain/di/init_di.config.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:l/l.dart';
 

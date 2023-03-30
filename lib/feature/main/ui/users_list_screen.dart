@@ -44,7 +44,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
               parent: AlwaysScrollableScrollPhysics()),
           itemCount: usersExcludeCurrent.length,
           itemBuilder: (context, index) {
-            late final whatToShow;
+            late final Widget whatToShow;
 
             if (usersExcludeCurrent.isNotEmpty) {
               final indexedUser = usersExcludeCurrent[index];
