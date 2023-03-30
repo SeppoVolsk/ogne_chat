@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
+import 'package:kind_owl/common/ui/app_components/logout_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
 import 'package:kind_owl/feature/profile/ui/profile_screen.dart';
@@ -35,7 +36,8 @@ class _UsersListScreenState extends State<UsersListScreen> {
           IconButton(
               onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => ProfileScreen())),
-              icon: const Icon(Icons.manage_accounts))
+              icon: const Icon(Icons.manage_accounts)),
+          const LogoutWidget(),
         ],
       ),
       body: Center(
