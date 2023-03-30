@@ -11,33 +11,37 @@ class FirebaseAuthRepository implements IAuthRepository {
 
   FirebaseAuthRepository(this.authService);
 
-  late final User? userDto;
+  User? userDto;
   @override
   Future<UserEntity> signIn(
       {required String email, required String password}) async {
     try {
       userDto = await authService.signIn(email: email, password: password);
     } catch (e) {
-      l.e('FirebaseAuthRepository error\n$e');
+      l.e('FirebaseAuthRepository Sign In error\n$e');
       rethrow;
     }
     return UserEntity.fromUserDto(userDto);
   }
 
   @override
-  signOut() {
-    // TODO: implement pull
-    throw UnimplementedError();
+  Future<UserEntity> signOut() async {
+    try {
+      await authService.signOut();
+    } catch (e) {
+      l.e('FirebaseAuthRepository SignOut error\n$e');
+      rethrow;
+    }
+    return UserEntity();
   }
 
   @override
   Future<UserEntity> register(
       {required String email, required String password}) async {
-    //late final User? userDTO;
     try {
       userDto = await authService.register(email: email, password: password);
     } catch (e) {
-      l.e('FirebaseAuthRepository error\n$e');
+      l.e('FirebaseAuthRepository Register error\n$e');
       rethrow;
     }
     return UserEntity.fromUserDto(userDto);

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/common/ui/initial_widget.dart';
 import 'package:l/l.dart';
 

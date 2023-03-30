@@ -69,7 +69,12 @@ class FirebaseAuthService implements IAuthService {
   }
 
   @override
-  void signOut() {
-    // TODO: implement fetch
+  Future<void> signOut() async {
+    try {
+      await fbAuth.signOut();
+    } catch (e) {
+      l.e('FirebaseRemoteService signOut error\n$e');
+      rethrow;
+    }
   }
 }

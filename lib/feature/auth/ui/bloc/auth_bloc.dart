@@ -121,12 +121,12 @@ class AuthBLoC extends Bloc<AuthBlocEvent, AuthBlocState>
   Future<void> _logOut(
       LogOutAuthBlocEvent event, Emitter<AuthBlocState> emit) async {
     try {
-      //  emit(AuthBlocState.processing(user: state.user));
-      await _repository.signOut();
-      //  emit(AuthBlocState.authenticated(user: newData));
+      emit(AuthBlocState.processing(user: state.user));
+      final newData = await _repository.signOut();
+      emit(AuthBlocState.notAuthenticated(user: newData));
     } on Object catch (err, stackTrace) {
       l.e('An error occurred in the AuthBLoC: $err', stackTrace);
-      //  emit(AuthBlocState.error(user: state.user));
+      emit(AuthBlocState.error(user: state.user, error: err));
       rethrow;
     } finally {
       //emit(AuthState.idle(data: state.data));
