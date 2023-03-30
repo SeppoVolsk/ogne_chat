@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
-import 'package:kind_owl/common/ui/app_components/select_language_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/auth/ui/register_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,7 +18,6 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)?.firechat ?? ''),
-          actions: const [SelectLanguageWidget()],
         ),
         body: Form(
           key: formKey,
@@ -31,13 +29,13 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   AppTextField(
                     controller: controllerEmail,
-                    labelText: "Email",
+                    labelText: AppLocalizations.of(context)?.email ?? '',
                     defaultText: "1111111@aa.aa",
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: controllerPassword,
-                    labelText: "Password",
+                    labelText: AppLocalizations.of(context)?.password ?? '',
                     obscureText: true,
                     defaultText: "111111",
                   ),

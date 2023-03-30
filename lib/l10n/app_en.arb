@@ -1,6 +1,10 @@
 {
   "firechat": "Firechat",
   "login": "Login",
+  "language": "Language",
+  "logout":"Logout",
+  "email":"Email",
+  "password":"Password",
   "@login": {
         "description": "Login button inscription"
   },

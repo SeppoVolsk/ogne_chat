@@ -1,6 +1,10 @@
 {
   "firechat": "Огнечат",
-  "login": "Логин",
+  "login": "Войти",
+  "language": "Язык",
+  "logout":"Выход",
+  "email":"Почта",
+  "password":"Пароль",
   "registration":"Регистрация",
   "profile": "Профиль",
   "nickname": "Никнейм",

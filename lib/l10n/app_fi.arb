@@ -1,6 +1,10 @@
 {
   "firechat": "Tulipalochatti",
   "login": "Valtuutus",
+  "language": "Kieli",
+  "logout":"Kirjautua ulos",
+  "email":"Sähköposti",
+  "password":"Salasana",
   "registration":"Rekisteröinti",
   "profile": "Profiili",
   "nickname": "Nimimerkki",

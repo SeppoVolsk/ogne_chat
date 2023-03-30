@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kind_owl/common/ui/root_screen_builder.dart';
 
@@ -15,8 +16,15 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
 
   @override
   void initState() {
-    _selectedLocale = /*Locale from SharedPreferences or*/ _langs.first;
+    //print('${context.read<Localizations>().locale}');
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _selectedLocale = /*Locale from SharedPreferences or*/
+        Localizations.localeOf(context);
+    super.didChangeDependencies();
   }
 
   @override
