@@ -19,7 +19,6 @@ class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
             .add(const MainScreenBLoCEvent.fetch());
       }),
       title: UserCard(user: user),
-      actions: const [SelectLanguageWidget()],
     );
   }
 

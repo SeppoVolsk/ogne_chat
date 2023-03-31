@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
-import 'package:kind_owl/common/ui/app_components/logout_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
 import 'package:kind_owl/feature/main/ui/user_list_screen_drawer.dart';
-import 'package:kind_owl/feature/profile/ui/profile_screen.dart';
-import 'package:l/l.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key, required this.allUsers});

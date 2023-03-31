@@ -25,7 +25,8 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
   Widget build(BuildContext context) {
     const radius = Radius.circular(20);
     const offset = EdgeInsets.all(10);
-    const timeStyle = TextStyle(color: Colors.blueGrey);
+    const timeStyle =
+        TextStyle(color: Colors.blueGrey, fontStyle: FontStyle.italic);
     final timestamp = widget.message.timestamp;
     final currGmtDateTime =
         timestamp != null ? Utils.toCurrentGmtDateTime(timestamp) : null;
@@ -46,22 +47,25 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                   )
                 : const BorderRadius.only(
                     topRight: radius,
-                    topLeft: radius,
+                    bottomLeft: radius,
                     bottomRight: radius,
                   )),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text(widget.message.content ?? ''),
-          if (currGmtDateTime != null) ...[
-            Text(
-              '${currGmtDateTime.hour}:${currGmtDateTime.minute}',
-              style: timeStyle,
-            ),
-            Text(
-                '${currGmtDateTime.day}.${currGmtDateTime.month}.${currGmtDateTime.year}',
-                style: timeStyle),
-          ] else
-            const SizedBox.shrink()
-        ]),
+        child: Column(
+            crossAxisAlignment:
+                ours ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text(widget.message.content ?? ''),
+              if (currGmtDateTime != null) ...[
+                Text(
+                  '${currGmtDateTime.hour}:${currGmtDateTime.minute}',
+                  style: timeStyle,
+                ),
+                Text(
+                    '${currGmtDateTime.day}.${currGmtDateTime.month}.${currGmtDateTime.year}',
+                    style: timeStyle),
+              ] else
+                const SizedBox.shrink()
+            ]),
       ),
     );
   }

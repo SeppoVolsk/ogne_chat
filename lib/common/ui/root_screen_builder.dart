@@ -21,14 +21,16 @@ class RootScreenBuilder extends StatefulWidget {
 
 class _RootScreenBuilderState extends State<RootScreenBuilder> {
   List stateList = [];
+  Color? _currentColor;
   Locale? _currentLocale;
   void setUpLocale(Locale? newLocale) =>
       setState(() => _currentLocale = newLocale);
+  void setUpColor(Color? newColor) => setState(() => _currentColor = newColor);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: _currentColor),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/domain/di/init_di.dart';
 import 'package:kind_owl/common/domain/entities/user_entity.dart';
+import 'package:kind_owl/common/ui/app_components/select_color_widget.dart';
 import 'package:kind_owl/common/ui/app_components/select_language_widget.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
 import 'package:kind_owl/feature/profile/ui/profile_screen.dart';
@@ -44,7 +45,8 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
                 AppLocalizations.of(context)?.logout ?? '',
                 style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
               ),
-              trailing: const Icon(Icons.exit_to_app),
+              trailing: Icon(Icons.exit_to_app,
+                  color: Theme.of(context).secondaryHeaderColor),
               onTap: () {
                 di.popScope;
                 BlocProvider.of<AuthBLoC>(context)
@@ -61,6 +63,17 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
             leading: const Icon(Icons.language),
             title: Text(AppLocalizations.of(context)?.language ?? ''),
             trailing: const SelectLanguageWidget(),
+          ),
+          ListTile(
+            leading: const Icon(Icons.palette),
+            title: Text(AppLocalizations.of(context)?.language ?? ''),
+            trailing: Icon(Icons.square_rounded,
+                color: Theme.of(context).primaryColor),
+            onTap: () => showDialog(
+                context: context,
+                builder: (_) => const SimpleDialog(
+                    title: Text("Pick color"),
+                    children: [SelectColorWidget()])),
           ),
         ],
       ),

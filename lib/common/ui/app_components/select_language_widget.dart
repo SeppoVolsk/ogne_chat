@@ -15,12 +15,6 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
   static const _langs = AppLocalizations.supportedLocales;
 
   @override
-  void initState() {
-    //print('${context.read<Localizations>().locale}');
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     _selectedLocale = /*Locale from SharedPreferences or*/
         Localizations.localeOf(context);
