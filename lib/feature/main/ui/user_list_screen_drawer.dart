@@ -71,8 +71,19 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
                 color: Theme.of(context).primaryColor),
             onTap: () => showDialog(
                 context: context,
-                builder: (_) => const SimpleDialog(
-                    title: Text("Pick color"),
+                builder: (_) => SimpleDialog(
+                    title: Row(
+                      children: [
+                        Row(
+                          children: [
+                            BackButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            Text("Pick color"),
+                          ],
+                        ),
+                      ],
+                    ),
                     children: [SelectColorWidget()])),
           ),
         ],
