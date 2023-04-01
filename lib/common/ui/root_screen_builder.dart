@@ -25,14 +25,17 @@ class _RootScreenBuilderState extends State<RootScreenBuilder> {
   List stateList = [];
   Color _currentColor = Color(
       di.prefs.getInt(AppColors.mainColorKey) ?? AppColors.defaultColor.value);
-  Locale? _currentLocale;
+  Locale? _currentLocale = Locale(di.prefs.getString('LanguageCode') ?? 'en');
 
-  void setUpLocale(Locale? newLocale) =>
-      setState(() => _currentLocale = newLocale);
-  void setUpColor(Color newColor) => setState(() {
-        _currentColor = newColor;
-        di.prefs.setInt(AppColors.mainColorKey, _currentColor.value);
-      });
+  void setUpLocale(Locale? newLocale) {
+    setState(() => _currentLocale = newLocale);
+    di.prefs.setString('LanguageCode', newLocale?.languageCode ?? 'en');
+  }
+
+  void setUpColor(Color newColor) {
+    setState(() => _currentColor = newColor);
+    di.prefs.setInt(AppColors.mainColorKey, _currentColor.value);
+  }
 
   @override
   Widget build(BuildContext context) {
