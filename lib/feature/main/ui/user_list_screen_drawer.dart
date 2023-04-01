@@ -31,8 +31,11 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            currentAccountPicture:
-                CircleAvatar(child: Text("${currentUser?.name?[0]}")),
+            decoration:
+                BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+            currentAccountPicture: CircleAvatar(
+              child: Text("${currentUser?.name?[0]}"),
+            ),
             accountName: Text("${currentUser?.name}"),
             accountEmail: Text("${currentUser?.uid}"),
             onDetailsPressed: () =>

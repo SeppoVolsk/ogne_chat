@@ -15,14 +15,19 @@ import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart';
 import 'package:kind_owl/feature/main/data/firebase_io_service.dart';
 import 'package:kind_owl/feature/main/domain/firebase_io_repository.dart';
 import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
 @InjectableInit()
-void initDi(String env) => getIt.init(environment: env);
+Future<void> initDi(String env) async => await getIt.init(environment: env);
 
 @module
 abstract class DiModule {
+  // -------------------------------- COMMON ------------------------------
+  @preResolve
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
+
   // -------------------------------- AUTH --------------------------------
   @Singleton(as: IAuthService)
   @prod
@@ -87,6 +92,8 @@ class Di {
 
   ChatScreenBLoC chatBloc(UserEntity? wUser) => getIt.get<ChatScreenBLoC>(
       param1: getIt.get<FirebaseChatIoRepository>(param1: wUser));
+
+  SharedPreferences get prefs => getIt.get<SharedPreferences>();
 
   const Di._();
 }

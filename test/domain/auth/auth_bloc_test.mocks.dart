@@ -156,13 +156,14 @@ class MockFirebaseAuthService extends _i1.Mock
         returnValue: _i7.Future<_i2.User?>.value(),
       ) as _i7.Future<_i2.User?>);
   @override
-  void signOut() => super.noSuchMethod(
+  _i7.Future<void> signOut() => (super.noSuchMethod(
         Invocation.method(
           #signOut,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [FirebaseAuthRepository].
@@ -213,6 +214,20 @@ class MockFirebaseAuthRepository extends _i1.Mock
               #email: email,
               #password: password,
             },
+          ),
+        )),
+      ) as _i7.Future<_i5.UserEntity>);
+  @override
+  _i7.Future<_i5.UserEntity> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
+          [],
+        ),
+        returnValue: _i7.Future<_i5.UserEntity>.value(_FakeUserEntity_3(
+          this,
+          Invocation.method(
+            #signOut,
+            [],
           ),
         )),
       ) as _i7.Future<_i5.UserEntity>);

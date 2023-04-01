@@ -6,10 +6,8 @@ abstract class Utils {
   static Future<void> preloadAllAppValues(String env) async {
     late dynamic preloadResult;
     try {
-      initDi(env);
+      await initDi(env);
       preloadResult = await getIt<IAuthService>().prepare();
-      // di.initChatScope;
-      // di.initMainScope;
     } catch (e) {
       l.e('preloadAllAppValues: an error occured\n ${e.toString()}');
       rethrow;

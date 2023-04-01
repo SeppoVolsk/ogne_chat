@@ -8,16 +8,17 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:kind_owl/common/data/i_auth_service.dart' as _i3;
-import 'package:kind_owl/common/data/i_io_service.dart' as _i6;
-import 'package:kind_owl/common/domain/di/init_di.dart' as _i12;
-import 'package:kind_owl/common/domain/entities/user_entity.dart' as _i11;
-import 'package:kind_owl/common/domain/repo/i_auth_repository.dart' as _i4;
-import 'package:kind_owl/common/domain/repo/i_io_repository.dart' as _i7;
-import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart' as _i5;
+import 'package:kind_owl/common/data/i_io_service.dart' as _i7;
+import 'package:kind_owl/common/domain/di/init_di.dart' as _i13;
+import 'package:kind_owl/common/domain/entities/user_entity.dart' as _i12;
+import 'package:kind_owl/common/domain/repo/i_auth_repository.dart' as _i5;
+import 'package:kind_owl/common/domain/repo/i_io_repository.dart' as _i8;
+import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart' as _i6;
 import 'package:kind_owl/feature/chat/domain/firebase_chat_io_repository.dart'
-    as _i10;
-import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart' as _i9;
-import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart' as _i8;
+    as _i11;
+import 'package:kind_owl/feature/chat/ui/bloc/chat_screen_bloc.dart' as _i10;
+import 'package:kind_owl/feature/main/ui/bloc/main_screen_bloc.dart' as _i9;
+import 'package:shared_preferences/shared_preferences.dart' as _i4;
 
 const String _prod = 'prod';
 
@@ -25,10 +26,10 @@ const String _prod = 'prod';
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i1.GetIt init({
+  Future<_i1.GetIt> init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i2.GetItHelper(
       this,
       environment,
@@ -39,12 +40,16 @@ extension GetItInjectableX on _i1.GetIt {
       diModule.fbAuthServ(),
       registerFor: {_prod},
     );
-    gh.singleton<_i4.IAuthRepository>(
+    await gh.factoryAsync<_i4.SharedPreferences>(
+      () => diModule.prefs,
+      preResolve: true,
+    );
+    gh.singleton<_i5.IAuthRepository>(
       diModule.fbAuthRepo(gh<_i3.IAuthService>()),
       registerFor: {_prod},
     );
-    gh.factory<_i5.AuthBLoC>(
-        () => diModule.authBloc(gh<_i4.IAuthRepository>()));
+    gh.factory<_i6.AuthBLoC>(
+        () => diModule.authBloc(gh<_i5.IAuthRepository>()));
     return this;
   }
 
@@ -55,16 +60,16 @@ extension GetItInjectableX on _i1.GetIt {
       dispose: dispose,
       init: (_i2.GetItHelper gh) {
         final diModule = _$DiModule();
-        gh.lazySingleton<_i6.IIoService>(
+        gh.lazySingleton<_i7.IIoService>(
           () => diModule.fbIoServ(),
           registerFor: {_prod},
         );
-        gh.lazySingleton<_i7.IIoRepository>(
-          () => diModule.fbIoRepo(gh<_i6.IIoService>()),
+        gh.lazySingleton<_i8.IIoRepository>(
+          () => diModule.fbIoRepo(gh<_i7.IIoService>()),
           registerFor: {_prod},
         );
-        gh.factory<_i8.MainScreenBLoC>(
-            () => diModule.mainBloc(gh<_i7.IIoRepository>()));
+        gh.factory<_i9.MainScreenBLoC>(
+            () => diModule.mainBloc(gh<_i8.IIoRepository>()));
       },
     );
   }
@@ -76,7 +81,7 @@ extension GetItInjectableX on _i1.GetIt {
       dispose: dispose,
       init: (_i2.GetItHelper gh) {
         final diModule = _$DiModule();
-        gh.factoryParam<_i9.ChatScreenBLoC, _i7.IIoRepository, dynamic>(
+        gh.factoryParam<_i10.ChatScreenBLoC, _i8.IIoRepository, dynamic>(
           (
             repository,
             _,
@@ -84,18 +89,18 @@ extension GetItInjectableX on _i1.GetIt {
               diModule.chatBloc(repository),
           registerFor: {_prod},
         );
-        gh.singleton<_i6.IIoService>(
+        gh.singleton<_i7.IIoService>(
           diModule.fbChatService(),
           registerFor: {_prod},
         );
-        gh.factoryParam<_i10.FirebaseChatIoRepository, _i11.UserEntity,
+        gh.factoryParam<_i11.FirebaseChatIoRepository, _i12.UserEntity,
             dynamic>(
           (
             withUser,
             _,
           ) =>
               diModule.fbChatRepo(
-            gh<_i6.IIoService>(),
+            gh<_i7.IIoService>(),
             withUser,
           ),
           registerFor: {_prod},
@@ -105,4 +110,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$DiModule extends _i12.DiModule {}
+class _$DiModule extends _i13.DiModule {}
