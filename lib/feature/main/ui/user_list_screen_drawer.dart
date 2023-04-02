@@ -69,7 +69,7 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.palette),
-            title: Text(AppLocalizations.of(context)?.language ?? ''),
+            title: Text(AppLocalizations.of(context)?.skins ?? ''),
             trailing: Icon(Icons.square_rounded,
                 color: Theme.of(context).primaryColor),
             onTap: () => showDialog(
@@ -82,7 +82,7 @@ class _UserListScreenDrawerState extends State<UserListScreenDrawer> {
                             BackButton(
                               onPressed: () => Navigator.of(context).pop(),
                             ),
-                            Text("Pick color"),
+                            Text(AppLocalizations.of(context)?.skins ?? ''),
                           ],
                         ),
                       ],

@@ -2,6 +2,8 @@
   "firechat": "Firechat",
   "login": "Login",
   "language": "Language",
+  "skins": "Skins",
+  "requiredField": "Required field",
   "logout":"Logout",
   "email":"Email",
   "password":"Password",

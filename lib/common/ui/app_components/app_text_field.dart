@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField(
@@ -18,7 +19,9 @@ class AppTextField extends StatelessWidget {
     controller.text = defaultText ?? '';
     return TextFormField(
       obscureText: obscureText,
-      validator: emptyValidator,
+      validator: (value) => value?.isEmpty == true
+          ? AppLocalizations.of(context)?.requiredField
+          : null,
       maxLines: 1,
       controller: controller,
       decoration: InputDecoration(

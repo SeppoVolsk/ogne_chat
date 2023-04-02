@@ -2,12 +2,14 @@
   "firechat": "Огнечат",
   "login": "Войти",
   "language": "Язык",
+  "skins": "Цветовая схема",
   "logout":"Выход",
+  "requiredField": "Обязательное поле",
   "email":"Почта",
   "password":"Пароль",
   "registration":"Регистрация",
   "profile": "Профиль",
   "nickname": "Никнейм",
   "status": "Статус",
-  "save":"Tallentaa"
+  "save":"Сохранить"
 }

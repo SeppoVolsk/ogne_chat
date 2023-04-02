@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_button.dart';
 import 'package:kind_owl/common/ui/app_components/app_text_field.dart';
 import 'package:kind_owl/feature/auth/ui/bloc/auth_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Registration Screen")),
+        appBar: AppBar(
+            title: Text(AppLocalizations.of(context)?.registration ?? '')),
         body: Form(
           key: formKey,
           child: Center(
@@ -26,18 +28,18 @@ class RegisterScreen extends StatelessWidget {
                 children: [
                   AppTextField(
                     controller: controllerEmail,
-                    labelText: "E-mail",
+                    labelText: AppLocalizations.of(context)?.email ?? '',
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: controllerPassword,
-                    labelText: "Password",
+                    labelText: AppLocalizations.of(context)?.password ?? '',
                     obscureText: true,
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: controllerPassword2,
-                    labelText: "Repeat Password",
+                    labelText: AppLocalizations.of(context)?.password ?? '',
                     obscureText: true,
                   ),
                   const SizedBox(height: 16),
@@ -55,7 +57,7 @@ class RegisterScreen extends StatelessWidget {
                         Navigator.of(context).pop();
                       }
                     },
-                    text: "Registration",
+                    text: AppLocalizations.of(context)?.registration ?? '',
                     backgroundColor: Colors.grey,
                   )
                 ],
